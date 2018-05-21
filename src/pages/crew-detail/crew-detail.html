@@ -1,0 +1,104 @@
+<!--
+  Generated template for the CrewDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-buttons left style="margin-left: 15px; margin-top: 5px;">
+
+    <button navPop ion-button icon-only style="background-color:transparent; box-shadow: none !important">
+
+      <ion-icon name="arrow-back"></ion-icon>
+
+    </button>
+
+  </ion-buttons>
+
+  <!-- <div class="crewDetail"></div> -->
+
+  <img class="crewTitleImg" src="{{crewData.img}}" />
+
+  <div class="crewTitleBack">
+
+    <div class="crewTitleLabel" style="font-size: 18px">{{crewData.name}}</div>
+
+    <div class="crewMemberLabel" style="font-size: 14px">멤버 1</div>
+
+    <button class="crewMemberAddButton" ion-button style="background-color:transparent; 
+    color:black; box-shadow: none !important" (click)="addMember()">
+
+      <ion-icon name="add-circle" style="font-size: 14px"> 초대</ion-icon>
+
+    </button>
+
+    <button class="crewWritingButton" right ion-button round (click)="writing()">글쓰기</button>
+
+  </div>
+
+  <img class="crewTitleImg" src="{{crewData.img}}" />
+
+</ion-header>
+
+<ion-content no-padding>
+  <div style="margin-top: 90px; margin-bottom: 56px;">
+    <ion-list no-padding>
+      <ion-item *ngFor="let post of postArray; let i = index;">
+
+        <ion-card>
+          <ion-row>
+            <ion-col>
+              <ion-item class="postTitleBack" no-padding>
+                <ion-avatar class="thumbnail" item-start>
+                  <img src="assets/imgs/ethd.png">
+                </ion-avatar>
+                <div class="postTitle">
+                  <h2>{{post.username}}</h2>
+                  <p>{{post.date}}</p>
+                </div>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <div class="moreInfoButton" align="right">
+                <button ion-button icon-left clear small style="align-self: right">
+                  <ion-icon name="more"></ion-icon>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-item>
+            <p class="b">{{post.content}}</p>
+          </ion-item>
+
+          <!-- <div *ngif="post.attachment === 0"> -->
+          <img *ngIf="post.attachment === 1" class="postImage" src="assets/imgs/blockchain.jpg">
+          <!-- </div> -->
+          <!-- <div *ngif="post.attachment === 1"> -->
+          <!-- <img class="postImage" src="assets/imgs/blockchain.jpg"> -->
+          <!-- hello -->
+          <!-- {{post.attachment}} -->
+          <!-- </div> -->
+
+
+
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>{{i}} Likes</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="text"></ion-icon>
+                <div>{{i}} Comments</div>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

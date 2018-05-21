@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align:center">
+      <b>소식</b>
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="logout()">
+        <ion-icon name="ios-log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <!-- <ion-buttons end>
+        <button ion-button icon-only (click)="logout()">
+          <ion-icon name="ios-log-out"></ion-icon>
+        </button>
+      </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <div style="margin-top: 10px; margin-bottom: 56px;">
+    <ion-list no-padding>
+      <ion-item *ngFor="let post of postArray; let i = index;">
+
+        <ion-card>
+          <ion-row>
+            <ion-col>
+              <ion-item class="postTitleBack" no-padding>
+                <ion-avatar class="thumbnail" item-start>
+                  <img src="assets/imgs/ethd.png">
+                </ion-avatar>
+                <div class="postTitle">
+                  <h2>{{post.username}}</h2>
+                  <p>{{post.date}}</p>
+                </div>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <div class="moreInfoButton" align="right">
+                <button ion-button icon-left clear small style="align-self: right">
+                  <ion-icon name="more"></ion-icon>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-item>
+            <p class="b">{{post.content}}</p>
+          </ion-item>
+          <img *ngIf="post.attachment === 1" class="postImage" src="assets/imgs/blockchain.jpg">
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>{{i}} Likes</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-left clear small>
+                <ion-icon name="text"></ion-icon>
+                <div>{{i}} Comments</div>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

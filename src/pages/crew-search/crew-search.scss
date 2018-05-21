@@ -1,0 +1,124 @@
+page-crew-search {
+    .line {
+        border: 2px indigo dashed;
+    }
+
+    .d-table {
+        display:table !important;
+    }
+      
+    .d-table-cell {
+        display:table-cell !important;
+    }
+      
+    .w-100 {
+        width: 100% !important;
+    }
+      
+    .tar {
+        text-align: right !important;
+    }
+
+    .scrollmenu {
+        // background-color: #333;
+        overflow: auto;
+        white-space: nowrap;
+    }
+    
+    .scrollmenu div {
+        position: relative;
+        display: inline-block;
+        // text-align: center;
+        padding-right: 10px;
+        text-decoration: none;
+    }
+
+    .scrollmenu div .text {
+        position: absolute !important;
+        top: 50px;
+        left: 10px;
+        color: white;
+        text-align: left;
+        font-size: 20px;
+        // text-decoration: none;
+    }
+
+    .new {
+        width: 100%;
+        height: 50%;
+    }
+
+    .new div {
+        width: 100%;
+        height: 25%;
+    }
+
+    // p.b {
+    //     white-space: pre-wrap;
+    //     width:300px;
+    //     // height: 100px;
+    //     overflow: hidden;
+    //     text-overflow: ellipsis;
+    //     display: -webkit-box;
+    //     -webkit-line-clamp: 4; /* 라인수 */
+    //     -webkit-box-orient: vertical;
+    //     word-wrap:break-word; 
+    //     // line-height: 20px;
+    //     // height: 100px; /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+    // }
+    // .new div div{
+    //     width: 50%;
+    //     height: 100%;
+    // }
+
+    // .new div div div {
+    //     display:table-cell !important;
+    //     // width: 50px;
+    //     // height: 5px;
+    // }
+
+    // .new div div div img{
+    //     height: 50px;
+    //     object-fit: fill;
+
+    //     // position: absolute;
+    //     // clip: rect(10px,10px,10px,10px);
+    // }
+    // .new div div p{
+    //     display:table-cell !important;
+    //     // width: 70%;
+    //     // height: 100%;
+
+    //     // position: absolute;
+    //     // clip: rect(10px,10px,10px,10px);
+    // }
+    // .new div div{
+    //     width: 50%;
+    //     height: 100%;
+    //     left: 50%;
+    // }
+    // ::-webkit-scrollbar {
+    //     display:none;
+    // }
+
+    // .image {
+
+    //     position:relative;
+       
+    //     float:left; /* optional */
+       
+    //    }
+       
+    //    .image .text {
+       
+    //     position:absolute;
+       
+    //     top:40px; /* in conjunction with left property, decides the text position */
+       
+    //     left:80px;
+       
+    //     width:700px; /* optional, though better have one */
+       
+    //    }
+       
+}
