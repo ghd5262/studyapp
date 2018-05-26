@@ -190,24 +190,25 @@ export class NetworkProvider {
   }
 
   postListInCrew(crewid) {
-    console.log('post list in crew load request'); 
+    console.log('post list in crew load request');
 
     return new Promise((resolve, reject) => {
 
       this.get(this.PHP_GETKEY.MYPOST_LIST_IN_CREW, "postData.php", ('crewid=' + crewid))
         .then((data: any) => {
-        console.log('post list in crew load complete');
+          // console.log(data);
+          console.log('post list in crew load complete');
 
-        for (let i = 0; i < data.length; i++) {
-          data[i].content = data[i].content.replace(/&#10;/gi, "\n\r"); 
-          data[i].date = this.timeConverter( data[i].date );
-        }
+          for (let i = 0; i < data.length; i++) {
+            data[i].content = data[i].content.replace(/&#10;/gi, "\n\r");
+            data[i].date = this.timeConverter(data[i].date);
+          }
 
-        resolve(data);
-      }, (err) => {
-        console.log('postListInCrew() error : ' + err.message);
-        reject(err);
-      });
+          resolve(data);
+        }, (err) => {
+          console.log('postListInCrew() error : ' + err.message);
+          reject(err);
+        });
     });
   }
 
@@ -215,19 +216,20 @@ export class NetworkProvider {
     return new Promise((resolve, reject) => {
       this.get(this.PHP_GETKEY.MYPOST_LIST, "postData.php", ('userid=' + this.userData.userid))
         .then((data: any) => {
-          
-        console.log('all post list load complete');
 
-        for (let i = 0; i < data.length; i++) {
-          data[i].content = data[i].content.replace(/&#10;/gi, "\n\r"); 
-          data[i].date = this.timeConverter( data[i].date );
-        }
+          console.log(data);
+          console.log('all post list load complete');
 
-        resolve(data);
-      }, (err) => {
-        console.log('postListAll() error : ' + err.message);
-        reject(err);
-      });
+          for (let i = 0; i < data.length; i++) {
+            data[i].content = data[i].content.replace(/&#10;/gi, "\n\r");
+            data[i].date = this.timeConverter(data[i].date);
+          }
+
+          resolve(data);
+        }, (err) => {
+          console.log('postListAll() error : ' + err.message);
+          reject(err);
+        });
     });
   }
 

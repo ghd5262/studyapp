@@ -8,6 +8,12 @@
 
   <ion-navbar>
     <ion-title>글쓰기</ion-title>
+    <!-- <ion-buttons left style="margin-left: 15px">
+      <button navPop ion-button icon-only>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons> -->
+
     <ion-buttons right style="margin-right: 15px; margin-top: 3px;">
 
       <button navPop ion-button icon-only style="font-size: 18px; background-color:transparent; box-shadow: none !important" (click)="complete()">
@@ -24,19 +30,20 @@
 
 
 <ion-content padding>
-    <!-- <ion-input placeholder="멤버들에게 전할 소식을 남기세요." clearInput [(ngModel)]="writing"></ion-input> -->
+  <!-- <ion-input placeholder="멤버들에게 전할 소식을 남기세요." clearInput [(ngModel)]="writing"></ion-input> -->
 
-    <form #submitForm="ngForm" novalidate (ngSubmit)="submit(submitForm)">
-        <ion-list no-lines>
-          <ion-item>
-            <!-- <ion-label stacked color="primary">Enter your support message below</ion-label> -->
-            <ion-textarea placeholder="멤버들에게 전할 소식을 남기세요." [(ngModel)]="writing" name="supportQuestion" #supportQuestion="ngModel" rows="15" required></ion-textarea>
-          </ion-item>
-        </ion-list>
-    
-        <!-- <p ion-text [hidden]="supportQuestion.valid || submitted === false" color="danger" padding-left>
+  <form #submitForm="ngForm" novalidate (ngSubmit)="submit(submitForm)">
+    <ion-list no-lines>
+      <ion-item>
+        <!-- <ion-label stacked color="primary">Enter your support message below</ion-label> -->
+        <ion-textarea placeholder="멤버들에게 전할 소식을 남기세요." [(ngModel)]="writing" name="supportQuestion" #supportQuestion="ngModel" rows="15"
+          required></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <!-- <p ion-text [hidden]="supportQuestion.valid || submitted === false" color="danger" padding-left>
           Support message is required
         </p> -->
-    
-      </form>
+
+  </form>
 </ion-content>

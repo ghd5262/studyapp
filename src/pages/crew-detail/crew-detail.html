@@ -67,20 +67,11 @@
               </div>
             </ion-col>
           </ion-row>
-          <ion-item>
+          <button (click)="postDetail(post)" style="text-align: left; width: 100%">
             <p class="b">{{post.content}}</p>
-          </ion-item>
+          </button>
 
-          <!-- <div *ngif="post.attachment === 0"> -->
           <img *ngIf="post.attachment === 1" class="postImage" src="assets/imgs/blockchain.jpg">
-          <!-- </div> -->
-          <!-- <div *ngif="post.attachment === 1"> -->
-          <!-- <img class="postImage" src="assets/imgs/blockchain.jpg"> -->
-          <!-- hello -->
-          <!-- {{post.attachment}} -->
-          <!-- </div> -->
-
-
 
           <ion-row>
             <ion-col>
