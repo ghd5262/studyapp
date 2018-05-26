@@ -132,7 +132,7 @@ export class NetworkProvider {
 
         this.userData = data;
         console.log(this.userData);
-        resolve();
+        resolve(); 
         // console.log(this.userData.userid);
         // console.log(this.userData.username);
         // console.log(this.userData.useremail);
