@@ -21,19 +21,22 @@ page-crew-search {
 
     .scrollmenu {
         // background-color: #333;
-        overflow: auto;
         white-space: nowrap;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        height: 120px;
     }
     
-    .scrollmenu div {
+    .scrollmenu button {
         position: relative;
         display: inline-block;
         // text-align: center;
         padding-right: 10px;
+        padding-left: 0px;
         text-decoration: none;
     }
 
-    .scrollmenu div .text {
+    .text {
         position: absolute !important;
         top: 50px;
         left: 10px;
@@ -52,6 +55,25 @@ page-crew-search {
         width: 100%;
         height: 25%;
     }
+
+    // .thumb { 
+    //     display: block; 
+    //     overflow: hidden;
+    //     height: 60px; 
+    //     width: 60px; 
+    // } 
+    
+    .thumb { 
+        // display: block; /* Otherwise it keeps some space around baseline */ 
+        // min-width: 100%; /* Scale up to fill container width */ 
+        // min-height: 100%; /* Scale up to fill container height */ 
+        // -ms-interpolation-mode: bicubic; /* Scaled images look a bit better in IE now */ 
+    
+        width: 60px; height: 60px;
+        object-fit: cover;
+        object-position: 55%;
+    }
+
 
     // p.b {
     //     white-space: pre-wrap;

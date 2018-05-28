@@ -36,6 +36,9 @@ export class NetworkProvider {
     MYDATA_BY_EMAIL: "myDataByEmail",
     MYCREW_LIST: "myCrewList",
     CREWDATA_BY_INDEX: "crewDataByIndex",
+    CREW_CATEGORY_LIST: "crewCategoryList",
+    NEW_CREW_LIST: "newCrewList",
+    RECOMMEND_CREW_LIST: "recommendCrewList",
     MYPOST_LIST_IN_CREW: "myPostListInCrew",
     MYPOST_LIST: "myPostList"
   }
@@ -94,6 +97,51 @@ export class NetworkProvider {
         resolve(data);
       }, (err) => {
         console.log('crewDataByIndex() error : ' + err.message);
+        reject(err);
+      });
+    });
+  }
+
+  crewCategoryList() {
+    console.log('crew category list load request ');
+
+    return new Promise((resolve, reject) => {
+
+      this.get(this.PHP_GETKEY.CREW_CATEGORY_LIST, "crewData.php").then((data: any) => {
+        console.log('crew category list load complete');
+        resolve(data);
+      }, (err) => {
+        console.log('crewCategoryList() error : ' + err.message);
+        reject(err);
+      });
+    });
+  }
+
+  newCrewList(count) {
+    console.log('new crew list load request ');
+
+    return new Promise((resolve, reject) => {
+
+      this.get(this.PHP_GETKEY.NEW_CREW_LIST, "crewData.php", ('count=' + count)).then((data: any) => {
+        console.log('new crew list load complete');
+        resolve(data);
+      }, (err) => {
+        console.log('newCrewList() error : ' + err.message);
+        reject(err);
+      });
+    });
+  }
+
+  recommendCrewList(userid, count) {
+    console.log('recommend crew list load request ');
+
+    return new Promise((resolve, reject) => {
+
+      this.get(this.PHP_GETKEY.RECOMMEND_CREW_LIST, "crewData.php", ('userid=' + userid + '&count=' + count)).then((data: any) => {
+        console.log('recommend crew list load complete');
+        resolve(data);
+      }, (err) => {
+        console.log('recommend() error : ' + err.message);
         reject(err);
       });
     });
@@ -250,7 +298,7 @@ export class NetworkProvider {
     });
   }
 
-  get(key, url, params) {
+  get(key, url, params = "") {
     return new Promise((resolve, reject) => {
       // let headers: any = new HttpHeaders({ 'Content-Type': 'application/json' }),
       let fullpath: any = "http://localhost/" + url;

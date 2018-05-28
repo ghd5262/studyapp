@@ -40,7 +40,7 @@ export class CrewRagistrationPage {
 
     // let body = {name: this.crew.name, description: this.crew.description};
     // this.crew.img = "assets/imgs/study_" + (Math.floor(Math.random() * (4 - 1 + 1)) + 1) + ".jpg";
-    this.crew.img = "assets/imgs/foods.jpg";
+    this.crew.img = "assets/imgs/board.jpg";
     let userid = this.networkProvider.userData.userid;
     this.networkProvider.crewAdd(userid, this.crew.name, this.crew.description, this.crew.img).then((res: any) => {
       this.navCtrl.setRoot(TabPage);

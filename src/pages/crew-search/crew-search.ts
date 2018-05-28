@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NetworkProvider } from '../../providers/network/network';
+import { CrewDetailPage } from '../crew-detail/crew-detail';
 
 /**
  * Generated class for the CrewSearchPage page.
@@ -15,15 +17,42 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CrewSearchPage {
 
-  data: any;
+  userData: any;
+  crewCategoryList: any;
+  newCrewList: any;
+  recommendCrewList: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private networkProvider: NetworkProvider) {
+    this.userData = networkProvider.userData;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CrewSearchPage');
+
+    this.networkProvider.crewCategoryList().then((categoryList: any) => {
+      this.crewCategoryList = categoryList;
+    }, (err: any) => { });
+
+    this.networkProvider.newCrewList(4).then((newCrewList: any) => {
+      this.newCrewList = newCrewList;
+    }, (err: any) => { });
+
+    this.networkProvider.recommendCrewList(this.userData.userid, 4).then((recommendCrewList: any) => {
+      this.recommendCrewList = recommendCrewList;
+    }, (err: any) => { });
   }
 
+  openCategory(categoryData) {
+
+  }
+
+  openCrewDetail(crewData) {
+    this.networkProvider.crewDataByIndex(crewData.id).then((crewData: any) => {
+      this.navCtrl.push(CrewDetailPage, { crewData: crewData });
+    }, (err) => { })
+  }
   // load(): any {
   //   if (this.data) {
   //     return Observable.of(this.data);

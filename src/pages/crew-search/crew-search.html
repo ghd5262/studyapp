@@ -15,17 +15,7 @@
 
 
 <ion-content padding>
-  <!-- <ion-grid>
-    <ion-row>
-      <ion-col>
-        주제별 스터디 찾기
-      </ion-col>
-      <ion-col width-100>
-        <button class="scroll" end (click)="resetEmail()">모두보기 ></button>
-      </ion-col>
-    </ion-row>
 
-  </ion-grid> -->
   <div class="d-table w-100">
     <p style="font-size: 15px; font-weight: bold" class="d-table-cell">주제별 스터디 찾기</p>
     <div class="d-table-cell tar">
@@ -34,151 +24,48 @@
   </div>
 
   <div class="scrollmenu">
-    <div class="back">
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/it_s.jpg" />
-        <p class="text">IT/컴퓨터</p>
-      </button>
-    </div>
-    <div>
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/language_s.jpg" />
-        <p class="text">언어</p>
-      </button>
-    </div>
-    <div>
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/animals_s.jpg" />
-        <p class="text">반려동물</p>
-      </button>
-    </div>
-    <div>
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/art_s.jpg" />
-        <p class="text">예술/창작</p>
-      </button>
-    </div>
-    <div>
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/beauty_s.jpg" />
-        <p class="text">뷰티</p>
-      </button>
-    </div>
-    <div>
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/game_s.jpg" />
-        <p class="text">게임</p>
-      </button>
-    </div>
-    <div>
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/health_s.jpg" />
-        <p class="text">건강/다이어트</p>
-      </button>
-    </div>
-    <div>
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/leisure_s.jpg" />
-        <p class="text">스포츠/레저</p>
-      </button>
-    </div>
-    <div>
-      <button no-padding (click)="resetEmail()">
-        <img src="assets/imgs/travel_s.jpg" />
-        <p class="text">여행</p>
-      </button>
-    </div>
+    <button *ngFor="let category of crewCategoryList" (click)="openCategory(category)">
+      <img src="{{category.img}}" />
+      <p class="text">{{category.name}}</p>
+    </button>
   </div>
 
-  <div class="d-table w-100" style="padding-top: 30px">
+  <div class="d-table w-100" style="padding-top: 30px" *ngIf="newCrewList?.length > 0">
     <p style="font-size: 15px; font-weight: bold" class="d-table-cell">New 스터디</p>
     <div class="d-table-cell tar">
       <button (click)="resetEmail()">모두보기 ></button>
     </div>
   </div>
 
-  <div class="new">
+  <button no-padding *ngFor="let newCrew of newCrewList" (click)="openCrewDetail(newCrew)" style="padding-left: 0px">
     <div class="row">
-      <div style="width: 60px; height: 60px; ">
-        <img src="assets/imgs/toeic_s.jpg" alt="" />
+      <div>
+        <img class="thumb" src="{{newCrew.img}}" alt="" />
       </div>
-      <button (click)="resetEmail()">
-        <p no-padding style="font-size: 18px; text-align: left; margin : 8px">토익스터디</p>
-        <p no-padding style="font-size: 13px; text-align: left; margin : 8px">토익을 공부합시다!</p>
-      </button>
-    </div>
-    <div class="row">
-      <div style="width: 60px; height: 60px; ">
-        <img src="assets/imgs/programming_s.jpg" alt="" />
+      <div>
+        <p no-padding style="font-size: 18px; text-align: left; margin : 8px; padding-left: 10px">{{newCrew.name}}</p>
+        <p no-padding style="font-size: 13px; text-align: left; margin : 8px; padding-left: 10px">{{newCrew.description}}</p>
       </div>
-      <button (click)="resetEmail()">
-        <p no-padding style="font-size: 18px; text-align: left; margin : 8px">프로그래밍</p>
-        <p no-padding style="font-size: 13px; text-align: left; margin : 8px">C, C++ JAVA, C# 아무거나 상관 ㄴㄴ</p>
-      </button>
     </div>
-    <div class="row">
-      <div style="width: 60px; height: 60px; ">
-        <img src="assets/imgs/drone_s.jpg" alt="" />
-      </div>
-      <button (click)="resetEmail()">
-        <p no-padding style="font-size: 18px; text-align: left; margin : 8px">드론경기</p>
-        <p no-padding style="font-size: 13px; text-align: left; margin : 8px">주말마다 드론 날리러 가요!</p>
-      </button>
-    </div>
-    <div class="row">
-      <div style="width: 60px; height: 60px; ">
-        <img src="assets/imgs/foods_s.jpg" alt="" />
-      </div>
-      <button (click)="resetEmail()">
-        <p no-padding style="font-size: 18px; text-align: left; margin : 8px">맛집</p>
-        <p no-padding style="font-size: 13px; text-align: left; margin : 8px">인간은 먹기위해 존재하는 법</p>
-      </button>
-    </div>
-  </div>
+  </button>
 
-  <div class="d-table w-100" style="padding-top: 30px">
+  <div class="d-table w-100" style="padding-top: 30px" *ngIf="recommendCrewList?.length > 0">
     <p style="font-size: 15px; font-weight: bold" class="d-table-cell">이런 스터디는 어떤가요?</p>
     <div class="d-table-cell tar">
       <button (click)="resetEmail()">모두보기 ></button>
     </div>
   </div>
 
-  <div class="new">
+  <button no-padding *ngFor="let recommendCrew of recommendCrewList" (click)="openCrewDetail(recommendCrew)" style="padding-left: 0px">
     <div class="row">
-      <div style="width: 60px; height: 60px; ">
-        <img src="assets/imgs/soccer_s.jpg" alt="" />
+      <div>
+        <img class="thumb" src="{{recommendCrew.img}}" alt="" />
       </div>
-      <button (click)="resetEmail()">
-        <p no-padding style="font-size: 18px; text-align: left; margin : 8px">풋살 모임</p>
-        <p no-padding style="font-size: 13px; text-align: left; margin : 8px">매주 일요일 경기 있습니다.</p>
-      </button>
-    </div>
-    <div class="row">
-      <div style="width: 60px; height: 60px; ">
-        <img src="assets/imgs/board_s.jpg" alt="" />
+      <div>
+        <p no-padding style="font-size: 18px; text-align: left; margin : 8px; padding-left: 10px">{{recommendCrew.name}}</p>
+        <p no-padding style="font-size: 13px; text-align: left; margin : 8px; padding-left: 10px">{{recommendCrew.description}}</p>
       </div>
-      <button (click)="resetEmail()">
-        <p no-padding style="font-size: 18px; text-align: left; margin : 8px">롱 보드</p>
-        <p no-padding style="font-size: 13px; text-align: left; margin : 8px">롱보드 같이 다실 분들 모여라!</p>
-      </button>
     </div>
-    <div class="row">
-      <div style="width: 60px; height: 60px; ">
-        <img src="assets/imgs/dogs_s.jpg" alt="" />
-      </div>
-      <button (click)="resetEmail()">
-        <p no-padding style="font-size: 18px; text-align: left; margin : 8px">반려견</p>
-        <p no-padding style="font-size: 13px; text-align: left; margin : 8px">멍멍! 멍멍멍 멍멍 멍멍멍멍!</p>
-      </button>
-    </div>
-    <div class="row">
-      <div style="width: 60px; height: 60px; ">
-        <img src="assets/imgs/foods_s.jpg" alt="" />
-      </div>
-      <button (click)="resetEmail()">
-        <p no-padding style="font-size: 18px; text-align: left; margin : 8px">맛집</p>
-        <p no-padding style="font-size: 13px; text-align: left; margin : 8px">인간은 먹기위해 존재하는 법</p>
-      </button>
-    </div>
-  </div>
+  </button>
+
 </ion-content>

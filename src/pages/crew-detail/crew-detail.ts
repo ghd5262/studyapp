@@ -29,6 +29,7 @@ export class CrewDetailPage {
 
     console.log(this.crewData.id + ' crew loaded');
   }
+  
   ionViewDidLoad() {
     this.networkProvider.postListInCrew(this.crewData.id).then((postArray:any)=>{
       this.postArray = postArray;
