@@ -30,6 +30,7 @@ import { WritingPage } from '../pages/writing/writing';
 import { PictureProvider } from '../providers/picture/picture';
 import { CrewSearchPage } from '../pages/crew-search/crew-search';
 import { PostDetailPage } from '../pages/post-detail/post-detail';
+import { CrewInvitePage } from '../pages/crew-invite/crew-invite';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { PostDetailPage } from '../pages/post-detail/post-detail';
     CrewDetailPage,
     WritingPage,
     CrewSearchPage,
-    PostDetailPage
+    PostDetailPage,
+    CrewInvitePage
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,8 @@ import { PostDetailPage } from '../pages/post-detail/post-detail';
     CrewDetailPage,
     WritingPage,
     CrewSearchPage,
-    PostDetailPage
+    PostDetailPage,
+    CrewInvitePage
   ],
   providers: [
     StatusBar,

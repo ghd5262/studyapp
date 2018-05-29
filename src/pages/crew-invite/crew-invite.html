@@ -1,0 +1,35 @@
+<!--
+  Generated template for the CrewInvitePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>초대</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div no-padding *ngFor="let user of applyList" style="padding-left: 0px">
+        <div class="row" style="height: 60px;">
+          <div>
+              <!-- <ion-avatar class="thumbnail" item-start> -->
+                  <img class="thumbnail" src="assets/imgs/dogs_s.jpg">
+                <!-- </ion-avatar> -->
+            <!-- <img class="thumb" src="{{user.thumbnail}}" alt="" /> -->
+          </div>
+          <p no-padding style="font-size: 20px; margin-top: 5px; margin-left: 10px">{{user.username}}</p>
+          <button ion-button style="font-size: 13px; padding: 20px; right: 80px; position: absolute" color ="secondary" (click)="accept(user)">수락</button>
+          <button ion-button style="font-size: 13px; padding: 20px; right: 10px; position: absolute" color ="danger" (click)="refuse(user)">거절</button>
+
+          <!-- <div>
+            <p no-padding style="font-size: 18px; text-align: left; margin : 8px; padding-left: 10px">{{recommendCrew.name}}</p>
+            <p no-padding style="font-size: 13px; text-align: left; margin : 8px; padding-left: 10px">{{recommendCrew.description}}</p>
+          </div> -->
+        </div>
+      </div>
+</ion-content>

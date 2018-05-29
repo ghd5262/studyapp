@@ -4,6 +4,13 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+<div *ngIf="isCrewMember === false" class="mask"></div>
+<button *ngIf="isCrewMember === false" class="apply" ion-button (click)="apply()">가입신청</button>
+<button *ngIf="isCrewMember === false" class="back" navPop ion-button icon-only >
+    <ion-icon name="arrow-back"></ion-icon>
+</button>
+
 <ion-header no-border>
 
   <ion-buttons left style="margin-left: 15px; margin-top: 5px;">
@@ -24,15 +31,20 @@
 
     <div class="crewTitleLabel" style="font-size: 18px">{{crewData.name}}</div>
 
-    <div class="crewMemberLabel" style="font-size: 14px">멤버 1</div>
+    <div class="crewMemberLabel" style="font-size: 14px">멤버 {{crewMemberCount}}</div>
 
-    <button class="crewMemberAddButton" ion-button style="background-color:transparent; 
+    <button *ngIf="isCrewLeader === true" class="crewMemberAddButton" ion-button style="background-color:transparent; 
     color:black; box-shadow: none !important" (click)="addMember()">
 
       <ion-icon name="add-circle" style="font-size: 14px"> 초대</ion-icon>
 
     </button>
+    <!-- <button class="crewApplyListButton" ion-button style="background-color:transparent; 
+    color:black; box-shadow: none !important" (click)="addMember()">
 
+      <ion-icon name="add-circle" style="font-size: 14px"> </ion-icon>
+
+    </button> -->
     <button class="crewWritingButton" right ion-button round (click)="writing()">글쓰기</button>
 
   </div>

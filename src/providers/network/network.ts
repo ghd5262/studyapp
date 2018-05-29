@@ -39,6 +39,10 @@ export class NetworkProvider {
     CREW_CATEGORY_LIST: "crewCategoryList",
     NEW_CREW_LIST: "newCrewList",
     RECOMMEND_CREW_LIST: "recommendCrewList",
+    IS_CREW_MEMBER: "isCrewMember",
+    CREW_APPLY_LIST: "crewApplyList",
+    IS_CREW_LEADER: "isCrewLeader",
+    CREW_MEMBER_COUNT: "crewMemberCount",
     MYPOST_LIST_IN_CREW: "myPostListInCrew",
     MYPOST_LIST: "myPostList"
   }
@@ -61,10 +65,55 @@ export class NetworkProvider {
 
       this.post("crewUpdate.php", options).then((res: any) => {
         if (res.result = 'success') {
-          this.noticeProvider.floatingNotice(`동아리 ${name}가 성공적으로 생성되었습니다.`);
+          this.noticeProvider.floatingNotice(`스터디 ${name}가 성공적으로 생성되었습니다.`);
           resolve();
         } else {
-          this.noticeProvider.floatingNotice('동아리 생성 에러');
+          this.noticeProvider.floatingNotice('스터디 생성 에러');
+        }
+      }, (err) => {
+        console.log('post-err:' + JSON.stringify(err));
+        this.noticeProvider.floatingNotice('서버 통신 에러');
+      });
+    });
+  }
+
+  crewJoin(userid, crewid, accept = false) {
+    return new Promise((resolve, reject) => {
+      let options: any = {
+        "key": "update",
+        "key2": accept? "crewJoinAccept" : "crewJoinRefuse",
+        "userid": userid,
+        "crewid": crewid,
+      };
+
+      this.post("crewUpdate.php", options).then((res: any) => {
+        if (res.result = 'success') {
+          // this.noticeProvider.floatingNotice(`스터디 ${name}가 성공적으로 생성되었습니다.`);
+          resolve();
+        } else {
+          this.noticeProvider.floatingNotice('에러');
+        }
+      }, (err) => {
+        console.log('post-err:' + JSON.stringify(err));
+        this.noticeProvider.floatingNotice('서버 통신 에러');
+      });
+    });
+  }
+
+  crewApply(crewData) {
+    return new Promise((resolve, reject) => {
+      let options: any = {
+        "key": "create",
+        "crewidto": crewData.id,
+        "useridfrom": this.userData.userid
+      };
+
+      this.post("crewApplyUpdate.php", options).then((res: any) => {
+        if (res.result = 'success') {
+          this.noticeProvider.floatingNotice(`스터디 ${crewData.name}에 가입신청을 보냈습니다.`);
+          resolve();
+        } else {
+          this.noticeProvider.floatingNotice('가입신청 에러');
         }
       }, (err) => {
         console.log('post-err:' + JSON.stringify(err));
@@ -132,6 +181,60 @@ export class NetworkProvider {
     });
   }
 
+  isCrewMember(crewid) {
+    return new Promise((resolve, reject) => {
+
+      this.get(this.PHP_GETKEY.IS_CREW_MEMBER, "crewData.php", ('userid=' + this.userData.userid + '&crewid=' + crewid)).then((data: any) => {
+        // console.log(data.length);
+        resolve(Boolean(data.length));
+      }, (err) => {
+        console.log('isCrewMember() error : ' + err.message);
+        reject(err);
+      });
+    });
+  }
+
+  crewApplyList(crewid) {
+    console.log('crew apply list load request');
+
+    return new Promise((resolve, reject) => {
+
+      this.get(this.PHP_GETKEY.CREW_APPLY_LIST, "crewApplyData.php", ('crewid=' + crewid)).then((data: any) => {
+        console.log('crew apply list load complete');
+        resolve(data);
+      }, (err) => {
+        console.log('crewApplyList() error : ' + err.message);
+        reject(err);
+      });
+    });
+  }
+
+  isCrewLeader(crewid) {
+    return new Promise((resolve, reject) => {
+
+      this.get(this.PHP_GETKEY.IS_CREW_LEADER, "crewData.php", ('userid=' + this.userData.userid + '&crewid=' + crewid)).then((data: any) => {
+        // console.log(data.length);
+        resolve(Boolean(data.length));
+      }, (err) => {
+        console.log('isCrewLeader() error : ' + err.message);
+        reject(err);
+      });
+    });
+  }
+
+  crewMemberCount(crewid) {
+    return new Promise((resolve, reject) => {
+
+      this.get(this.PHP_GETKEY.CREW_MEMBER_COUNT, "crewData.php", ('crewid=' + crewid)).then((count: any) => {
+        // console.log(data.length);
+        resolve(count);
+      }, (err) => {
+        console.log('crewMemberCount() error : ' + err.message);
+        reject(err);
+      });
+    });
+  }
+
   recommendCrewList(userid, count) {
     console.log('recommend crew list load request ');
 
@@ -180,7 +283,7 @@ export class NetworkProvider {
 
         this.userData = data;
         console.log(this.userData);
-        resolve(); 
+        resolve();
         // console.log(this.userData.userid);
         // console.log(this.userData.username);
         // console.log(this.userData.useremail);

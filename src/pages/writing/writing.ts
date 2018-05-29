@@ -48,7 +48,7 @@ export class WritingPage {
       this.writing,
       0,
       this.crewData.name).then((data: any) => {
-        this.navCtrl.pop();
+        // this.navCtrl.pop();
         this.noticeProvider.floatingNotice("게시되었습니다.");
       }, (err) => { })
 
