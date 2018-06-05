@@ -21,11 +21,12 @@ export class CrewSearchPage {
   crewCategoryList: any;
   newCrewList: any;
   recommendCrewList: any;
-
+  tabBarElement;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private networkProvider: NetworkProvider) {
     this.userData = networkProvider.userData;
+    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
   }
 
   ionViewDidLoad() {
@@ -42,6 +43,14 @@ export class CrewSearchPage {
     this.networkProvider.recommendCrewList(this.userData.userid, 4).then((recommendCrewList: any) => {
       this.recommendCrewList = recommendCrewList;
     }, (err: any) => { });
+  }
+
+  ionViewWillEnter() {
+    this.tabBarElement.style.display = 'none';
+  }
+
+  ionViewWillLeave() {
+    this.tabBarElement.style.display = 'flex';
   }
 
   openCategory(categoryData) {

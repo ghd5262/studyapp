@@ -7,9 +7,13 @@ page-post {
         // z-index: -3;
     }
     .thumbnail {
+        width: 50px; height: 50px;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+        left: 10px;
+        top: 13px;
         position: absolute;
-        left: 5px;
-        top: 5px;
     }
     .postTitleBack {
         position: relative;
@@ -20,7 +24,7 @@ page-post {
     .postTitle {
         position: relative;
         // width:70vw;
-        left: 50px;
+        left: 10px;
         top: 0px;
     }
     .moreInfoButton {

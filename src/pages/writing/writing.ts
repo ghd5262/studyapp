@@ -20,25 +20,35 @@ export class WritingPage {
   private writing: any;
   private crewData: any;
   private userData: any;
+  private tabBarElement;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private networkProvider: NetworkProvider,
     private noticeProvider: NoticeProvider) {
     this.crewData = navParams.data.crewData;
     this.userData = networkProvider.userData;
+    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WritingPage');
   }
 
+  ionViewWillEnter() {
+    this.tabBarElement.style.display = 'none';
+  }
+
+  ionViewWillLeave() {
+    this.tabBarElement.style.display = 'flex';
+  }
   complete() {
 
     // this.writing = this.writing.replace(/&#10;/gi, "\n\r");
 
     // this.writing = this.writing.replace(/(?:\r\n|\r|\n)/g, '');
     // this.writing = this.writing;
-    
+
 
     this.networkProvider.writing(
       this.crewData.userid,

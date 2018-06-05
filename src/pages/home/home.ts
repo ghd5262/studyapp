@@ -63,10 +63,11 @@ export class HomePage {
   }
 
   registration() {
-    let modal = this.modalCtrl.create(CrewRagistrationPage);
-    modal.present();
+    // let modal = this.modalCtrl.create(CrewRagistrationPage);
+    // modal.present();
 
     // modal.onWillDismiss((data: any[]) => {});
+    this.navCtrl.push(CrewRagistrationPage);
   }
 
   openCrewDetail(item : any) {

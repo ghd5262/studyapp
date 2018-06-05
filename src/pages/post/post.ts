@@ -3,6 +3,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { WelcomePage } from '../welcome/welcome';
 import { NetworkProvider } from '../../providers/network/network';
+import { PostDetailPage } from '../post-detail/post-detail';
 
 @Component({
   selector: 'page-post',
@@ -52,5 +53,11 @@ export class PostPage {
       ]
     });
     confirm.present();
+  }
+
+  postDetail(postData) {
+    this.networkProvider.crewDataByIndex(postData.crewid).then((crewData:any)=>{
+      this.navCtrl.push(PostDetailPage, { crewData: crewData, postData: postData });
+    },(err)=>{})
   }
 }

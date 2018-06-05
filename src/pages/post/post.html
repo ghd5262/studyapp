@@ -27,9 +27,10 @@
           <ion-row>
             <ion-col>
               <ion-item class="postTitleBack" no-padding>
-                <ion-avatar class="thumbnail" item-start>
-                  <img src="assets/imgs/ethd.png">
+                <ion-avatar item-start>
+                <img class="thumbnail" src="assets/imgs/dogs_s.jpg">
                 </ion-avatar>
+
                 <div class="postTitle">
                   <h2>{{post.username}}</h2>
                   <p>{{post.date}}</p>
@@ -44,9 +45,9 @@
               </div>
             </ion-col>
           </ion-row>
-          <ion-item>
+          <button (click)="postDetail(post)" style="text-align: left; width: 100%">
             <p class="b">{{post.content}}</p>
-          </ion-item>
+          </button>
           <img *ngIf="post.attachment === 1" class="postImage" src="assets/imgs/blockchain.jpg">
           <ion-row>
             <ion-col>

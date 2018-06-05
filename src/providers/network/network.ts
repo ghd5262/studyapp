@@ -43,6 +43,7 @@ export class NetworkProvider {
     CREW_APPLY_LIST: "crewApplyList",
     IS_CREW_LEADER: "isCrewLeader",
     CREW_MEMBER_COUNT: "crewMemberCount",
+    COMMENT_LIST: "commentList",
     MYPOST_LIST_IN_CREW: "myPostListInCrew",
     MYPOST_LIST: "myPostList"
   }
@@ -81,7 +82,7 @@ export class NetworkProvider {
     return new Promise((resolve, reject) => {
       let options: any = {
         "key": "update",
-        "key2": accept? "crewJoinAccept" : "crewJoinRefuse",
+        "key2": accept ? "crewJoinAccept" : "crewJoinRefuse",
         "userid": userid,
         "crewid": crewid,
       };
@@ -379,6 +380,55 @@ export class NetworkProvider {
           resolve(data);
         }, (err) => {
           console.log('postListAll() error : ' + err.message);
+          reject(err);
+        });
+    });
+  }
+
+  writeComment(crewid, postid, content) {
+    return new Promise((resolve, reject) => {
+      let options: any = {
+        "key": "create",
+        "userid": this.userData.userid,
+        "crewid": crewid,
+        "postid": postid,
+        "content": content
+      };
+
+      console.log(options);
+
+      this.post("commentUpdate.php", options).then((res: any) => {
+        if (res.result = 'success') {
+          this.noticeProvider.floatingNotice('댓글이 성공적으로 등록되었습니다.');
+          resolve();
+        } else {
+          this.noticeProvider.floatingNotice('댓글 등록 에러');
+        }
+      }, (err) => {
+        console.log('post-err:' + JSON.stringify(err));
+        this.noticeProvider.floatingNotice('서버 통신 에러');
+      });
+    });
+  }
+
+  commentListByPost(postid) {
+    console.log("commentListByPost called");
+
+    return new Promise((resolve, reject) => {
+      this.get(this.PHP_GETKEY.COMMENT_LIST, "commentData.php", ('postid=' + postid))
+        .then((data: any) => {
+
+          console.log(data);
+          console.log('all comment list load complete');
+
+          for (let i = 0; i < data.length; i++) {
+            data[i].content = data[i].content.replace(/&#10;/gi, "\n\r");
+            data[i].date = this.timeConverter(data[i].date);
+          }
+
+          resolve(data);
+        }, (err) => {
+          console.log('commentListByPost() error : ' + err.message);
           reject(err);
         });
     });

@@ -18,11 +18,13 @@ export class CrewInvitePage {
 
   private crewData: any;
   private applyList: any;
+  private tabBarElement;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private networkProvider: NetworkProvider) {
 
     this.crewData = navParams.data.crewData;
+    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
 
   }
 
@@ -31,6 +33,14 @@ export class CrewInvitePage {
     this.networkProvider.crewApplyList(this.crewData.id).then((applyList: any) => {
       this.applyList = applyList;
     }, (err: any) => { });
+  }
+
+  ionViewWillEnter() {
+    this.tabBarElement.style.display = 'none';
+  }
+
+  ionViewWillLeave() {
+    this.tabBarElement.style.display = 'flex';
   }
 
   accept(user: any) {

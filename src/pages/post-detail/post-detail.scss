@@ -7,10 +7,12 @@ page-post-detail {
         // z-index: -3;
     }
     .thumbnail {
-        position: absolute;
-        width: 40px;
-        left: 5px;
-        top: 5px;
+        width: 35px; height: 35px;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+        margin-left: 5px;
+        // position: absolute;
     }
     .postTitleBack {
         position: relative;

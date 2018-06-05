@@ -23,14 +23,24 @@ export class CrewRagistrationPage {
     description: '',
     img: ''
   }
+  private tabBarElement;
   constructor(public navCtrl: NavController,
     private networkProvider: NetworkProvider,
     private alertController: AlertController,
     public navParams: NavParams) {
+      this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CrewRagistrationPage');
+  }
+
+  ionViewWillEnter() {
+    this.tabBarElement.style.display = 'none';
+  }
+
+  ionViewWillLeave() {
+    this.tabBarElement.style.display = 'flex';
   }
 
   registration() {

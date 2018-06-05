@@ -24,6 +24,7 @@ export class CrewDetailPage {
   private crewData: any;
   private crewMemberCount: any;
   private postArray = [];
+  private tabBarElement;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
@@ -32,6 +33,8 @@ export class CrewDetailPage {
     this.crewData = navParams.data.crewData;
 
     console.log(this.crewData.id + ' crew loaded');
+    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+
   }
   
   ionViewDidLoad() {
@@ -55,10 +58,15 @@ export class CrewDetailPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter CrewDetailPage');
+    this.tabBarElement.style.display = 'none';
 
     this.networkProvider.postListInCrew(this.crewData.id).then((postArray:any)=>{
       this.postArray = postArray;
     }, (err:any)=>{});
+  }
+
+  ionViewWillLeave() {
+    this.tabBarElement.style.display = 'flex';
   }
 
   addMember() {
@@ -66,9 +74,9 @@ export class CrewDetailPage {
   }
 
   writing() {
-    let modal = this.modalCtrl.create(WritingPage, { crewData: this.crewData });
-    modal.present();
-    // this.navCtrl.push(WritingPage, { crewData: this.crewData });
+    // let modal = this.modalCtrl.create(WritingPage, { crewData: this.crewData });
+    // modal.present();
+    this.navCtrl.push(WritingPage, { crewData: this.crewData });
   }
 
   apply() {

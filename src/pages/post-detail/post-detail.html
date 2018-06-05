@@ -11,31 +11,113 @@
   </ion-navbar>
 
 </ion-header>
+<ion-content no-padding>
+  <ion-grid no-padding style="margin: 10px !important;">
+    <ion-row align-items-center>
 
+      <ion-col col-2>
+        <img class="thumbnail" src="assets/imgs/dogs_s.jpg">
+      </ion-col>
 
-<ion-content padding>
+      <ion-col col-8>
+        <ion-row>
+          <p style="font-size: 13px; margin: 0px;">{{postData.username}}</p>
+        </ion-row>
+        <ion-row>
+          <p style="font-size: 13px; margin: 0px;">{{postData.date}}</p>
+        </ion-row>
+      </ion-col>
 
-  <ion-row>
-    <ion-col>
-      <div class="postTitleBack" no-padding>
-        <div class="thumbnail">
-          <img src="assets/imgs/ethd.png">
-        </div>
-        <div class="postTitle">
-          <p style="font-size: 18px; margin: 0px; padding-top: 6px">{{postData.username}}</p>
-          <p style="font-size: 13px; margin: 0px; ">{{postData.date}}</p>
-        </div>
-      </div>
-    </ion-col>
-    <ion-col>
-      <div class="moreInfoButton" align="right">
-        <button ion-button icon-left clear small style="align-self: right">
+      <ion-col col-2 align-self-start justify-content-center style="margin-top: 0px">
+        <button ion-button clear no-margin>
           <ion-icon name="more"></ion-icon>
         </button>
-      </div>
-    </ion-col>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <p class="b">{{postData.content}}</p>
+    </ion-row>
+
+    <p style="margin-bottom: 0px">댓글 {{commentCount}}</p>
+
+  </ion-grid>
+
+  <ion-row row-1 style="background-color:rgb(250, 250, 250)">
+
+    <div style="width: 100%; margin: 0% !important;" *ngFor="let comment of commentList;">
+
+      <ion-grid no-padding style="margin: 10px !important;">
+
+        <ion-row align-items-center>
+
+          <ion-col col-2>
+            <img class="thumbnail" src="assets/imgs/dogs_s.jpg">
+          </ion-col>
+
+          <ion-col col-8>
+
+            <ion-row>
+              <p style="font-size: 13px; margin: 0px; ">{{comment.username}}</p>
+            </ion-row>
+
+            <ion-row>
+              <p style="font-size: 11px; margin: 0px; color: gray">{{comment.date}}</p>
+            </ion-row>
+
+          </ion-col>
+
+          <ion-col col-2 align-self-start justify-content-center style="margin-top: 0px">
+            <button ion-button clear no-margin>
+              <ion-icon name="more"></ion-icon>
+            </button>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-2></ion-col>
+          <ion-col col-8>
+              <p class="b" style="margin-bottom: 0px; margin-top: 5px">{{comment.content}}</p>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
   </ion-row>
-  <div>
-    <p class="b">{{postData.content}}</p>
-  </div>
+  <ion-row>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </ion-row>
+
+  <ion-grid style="position: fixed; top: 90%; width: 100%; left: 0%; background-color: white !important;">
+    <ion-row>
+      <ion-col col-9>
+        <textarea no-padding style="margin: 0px !important; width: 100%; border: none" placeholder="댓글을 남겨주세요." [(ngModel)]="writing"
+          rows="3" required></textarea>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button (click)="complete()">글쓰기</button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <!-- <form #submitForm="ngForm" style="position: fixed; top: 85%"> -->
+  <!-- <ion-list no-lines> -->
+  <!-- <ion-item> -->
+  <!-- </ion-item> -->
+  <!-- </ion-list> -->
+  <!-- </form> -->
+
+  <!-- <div style="padding-top: 30px; margin: 0% !important;">
+    
+
+   
+  </div> -->
+
 </ion-content>
