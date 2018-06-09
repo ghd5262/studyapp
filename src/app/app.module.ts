@@ -31,6 +31,8 @@ import { PictureProvider } from '../providers/picture/picture';
 import { CrewSearchPage } from '../pages/crew-search/crew-search';
 import { PostDetailPage } from '../pages/post-detail/post-detail';
 import { CrewInvitePage } from '../pages/crew-invite/crew-invite';
+import { CrewCategoryDetailPage } from '../pages/crew-category-detail/crew-category-detail';
+import { AllCrewViewPage } from '../pages/all-crew-view/all-crew-view';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { CrewInvitePage } from '../pages/crew-invite/crew-invite';
     WritingPage,
     CrewSearchPage,
     PostDetailPage,
-    CrewInvitePage
+    CrewInvitePage,
+    CrewCategoryDetailPage,
+    AllCrewViewPage
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,9 @@ import { CrewInvitePage } from '../pages/crew-invite/crew-invite';
     WritingPage,
     CrewSearchPage,
     PostDetailPage,
-    CrewInvitePage
+    CrewInvitePage,
+    CrewCategoryDetailPage,
+    AllCrewViewPage
   ],
   providers: [
     StatusBar,

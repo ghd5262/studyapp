@@ -1,0 +1,21 @@
+page-crew-category-detail {
+    .text {
+        position: absolute !important;
+        top: 55px;
+        left: 15px;
+        color: white;
+        text-align: left;
+        font-size: 20px;
+        // text-decoration: none;
+    }
+    .categoryButton {
+        position: relative;
+        display: inline-block;
+        // text-align: center;
+        padding-right: 7px;
+        padding-left: 7px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        text-decoration: none;
+    }
+}
