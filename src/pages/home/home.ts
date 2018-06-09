@@ -12,8 +12,7 @@ import { CrewSearchPage } from '../crew-search/crew-search';
 })
 export class HomePage {
 
-  public items: Array<any> = [];
-  public grid: Array<Array<any>>; //array of arrays
+  public crewList;
 
   constructor(public navCtrl: NavController,
     public http: HttpClient,
@@ -23,8 +22,6 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-
-    // this.load();
     console.log('HomePage Loaded');
   }
 
@@ -32,30 +29,8 @@ export class HomePage {
     console.log('ionViewWillEnter HomePage');
 
     this.networkProvider.crewList().then((data:any)=>{
-      this.items = data;
+      this.crewList = data;
     }, (err) => { })
-  }
-
-  ionViewUpate() {
-    this.grid = Array(Math.ceil(this.items.length / 2)); //MATHS!
-
-
-    let rowNum = 0; //counter to iterate over the rows in the grid
-
-    for (let i = 0; i < this.items.length; i += 2) { //iterate images
-
-      this.grid[rowNum] = Array(2); //declare two elements per row
-
-      if (this.items[i]) { //check file URI exists
-        this.grid[rowNum][0] = this.items[i] //insert image
-      }
-
-      if (this.items[i + 1]) { //repeat for the second image
-        this.grid[rowNum][1] = this.items[i + 1]
-      }
-
-      rowNum++; //go on to the next row
-    }
   }
 
   search() {

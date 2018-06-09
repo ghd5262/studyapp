@@ -7,8 +7,8 @@
 
 <div *ngIf="isCrewMember === false" class="mask"></div>
 <button *ngIf="isCrewMember === false" class="apply" ion-button (click)="apply()">가입신청</button>
-<button *ngIf="isCrewMember === false" class="back" navPop ion-button icon-only >
-    <ion-icon name="arrow-back"></ion-icon>
+<button *ngIf="isCrewMember === false" class="back" navPop ion-button icon-only>
+  <ion-icon name="arrow-back"></ion-icon>
 </button>
 
 <ion-header no-border>
@@ -56,52 +56,59 @@
 <ion-content no-padding>
   <div style="margin-top: 90px; margin-bottom: 56px;">
     <ion-list no-padding>
-      <ion-item *ngFor="let post of postArray; let i = index;">
+      <!-- <ion-item > -->
 
-        <ion-card>
-          <ion-row>
-            <ion-col>
-              <ion-item class="postTitleBack" no-padding>
-                <ion-avatar item-start>
-                    <img class="thumbnail" src="assets/imgs/dogs_s.jpg">
-                  </ion-avatar>
-                <div class="postTitle">
-                  <h2>{{post.username}}</h2>
-                  <p>{{post.date}}</p>
-                </div>
-              </ion-item>
+      <ion-card *ngFor="let post of postArray; let i = index;">
+        <ion-grid no-padding style="margin: 10px !important;">
+          <ion-row align-items-center>
+
+            <ion-col col-2>
+              <img class="thumbnail" src="assets/imgs/dogs_s.jpg">
             </ion-col>
-            <ion-col>
-              <div class="moreInfoButton" align="right">
-                <button ion-button icon-left clear small style="align-self: right">
-                  <ion-icon name="more"></ion-icon>
-                </button>
-              </div>
+
+            <ion-col col-8>
+              <ion-row>
+                <p style="font-size: 13px; margin: 0px;">{{post.username}}</p>
+              </ion-row>
+              <ion-row>
+                <p style="font-size: 13px; margin: 0px;">{{post.date}}</p>
+              </ion-row>
             </ion-col>
-          </ion-row>
-          <button (click)="postDetail(post)" style="text-align: left; width: 100%">
-            <p class="b">{{post.content}}</p>
-          </button>
 
-          <img *ngIf="post.attachment === 1" class="postImage" src="assets/imgs/blockchain.jpg">
-
-          <ion-row>
-            <ion-col>
-              <button ion-button icon-left clear small>
-                <ion-icon name="thumbs-up"></ion-icon>
-                <div>{{i}} Likes</div>
+            <ion-col col-2 align-self-start justify-content-center style="margin-top: 0px">
+              <button ion-button clear no-margin>
+                <ion-icon name="more"></ion-icon>
               </button>
             </ion-col>
-            <ion-col>
-              <button ion-button icon-left clear small>
-                <ion-icon name="text"></ion-icon>
-                <div>{{i}} Comments</div>
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-card>
 
-      </ion-item>
+          </ion-row>
+
+          <ion-row>
+            <button (click)="postDetail(post)" style="text-align: left; width: 100%">
+              <p class="b">{{post.content}}</p>
+            </button>
+          </ion-row>
+        </ion-grid>
+
+        <img *ngIf="post.attachment === 1" class="postImage" src="assets/imgs/blockchain.jpg">
+
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="thumbs-up"></ion-icon>
+              <div>{{i}} Likes</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="text"></ion-icon>
+              <div>{{i}} Comments</div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <!-- </ion-item> -->
     </ion-list>
   </div>
 </ion-content>
