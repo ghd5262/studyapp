@@ -19,7 +19,7 @@
   <div class="d-table w-100">
     <p style="font-size: 15px; font-weight: bold" class="d-table-cell">주제별 스터디 찾기</p>
     <div class="d-table-cell tar">
-      <button (click)="resetEmail()">모두보기 ></button>
+      <button (click)="crewCategoryDetail()">모두보기 ></button>
     </div>
   </div>
 
@@ -33,7 +33,7 @@
   <div class="d-table w-100" style="padding-top: 30px" *ngIf="newCrewList?.length > 0">
     <p style="font-size: 15px; font-weight: bold" class="d-table-cell">New 스터디</p>
     <div class="d-table-cell tar">
-      <button (click)="resetEmail()">모두보기 ></button>
+      <button (click)="openAllNewCrewList()">모두보기 ></button>
     </div>
   </div>
 
@@ -52,7 +52,7 @@
   <div class="d-table w-100" style="padding-top: 30px" *ngIf="recommendCrewList?.length > 0">
     <p style="font-size: 15px; font-weight: bold" class="d-table-cell">이런 스터디는 어떤가요?</p>
     <div class="d-table-cell tar">
-      <button (click)="resetEmail()">모두보기 ></button>
+      <button (click)="openAllRecCrewList()">모두보기 ></button>
     </div>
   </div>
 

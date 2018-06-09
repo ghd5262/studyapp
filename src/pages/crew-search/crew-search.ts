@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NetworkProvider } from '../../providers/network/network';
 import { CrewDetailPage } from '../crew-detail/crew-detail';
+import { CrewCategoryDetailPage } from '../crew-category-detail/crew-category-detail';
+import { AllCrewViewPage } from '../all-crew-view/all-crew-view';
 
 /**
  * Generated class for the CrewSearchPage page.
@@ -53,8 +55,24 @@ export class CrewSearchPage {
     this.tabBarElement.style.display = 'flex';
   }
 
-  openCategory(categoryData) {
+  crewCategoryDetail() {
+    this.navCtrl.push(CrewCategoryDetailPage);
+  }
 
+  openCategory(categoryData) {
+    this.navCtrl.push(AllCrewViewPage, { title: categoryData.name });
+  }
+
+  openAllNewCrewList() {
+    this.networkProvider.newCrewList(30).then((newCrewList: any) => {
+      this.navCtrl.push(AllCrewViewPage, { title: 'New 스터디', crewList: newCrewList });
+    }, (err: any) => { });
+  }
+
+  openAllRecCrewList() {
+    this.networkProvider.recommendCrewList(this.userData.userid, 30).then((recommendCrewList: any) => {
+      this.navCtrl.push(AllCrewViewPage, { title: '이런 스터디는 어떤가요?', crewList: recommendCrewList });
+    }, (err: any) => { });
   }
 
   openCrewDetail(crewData) {
