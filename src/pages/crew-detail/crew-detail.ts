@@ -4,6 +4,7 @@ import { WritingPage } from '../writing/writing';
 import { NetworkProvider } from '../../providers/network/network';
 import { PostDetailPage } from '../post-detail/post-detail';
 import { CrewInvitePage } from '../crew-invite/crew-invite';
+import { CalendarPage } from '../calendar/calendar';
 
 /**
  * Generated class for the CrewDetailPage page.
@@ -85,5 +86,9 @@ export class CrewDetailPage {
 
   postDetail(postData) {
     this.navCtrl.push(PostDetailPage, { crewData: this.crewData, postData: postData });
+  }
+
+  calendar() {
+    this.navCtrl.push(CalendarPage, {crewData: this.crewData});
   }
 }

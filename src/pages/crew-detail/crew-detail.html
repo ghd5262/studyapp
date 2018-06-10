@@ -45,7 +45,15 @@
       <ion-icon name="add-circle" style="font-size: 14px"> </ion-icon>
 
     </button> -->
-    <button class="crewWritingButton" right ion-button round (click)="writing()">글쓰기</button>
+    <!-- <button class="crewWritingButton" right ion-button round (click)="writing()">글쓰기</button> -->
+
+    <button class="crewScheduleButton" right ion-button ion-only clear (click)="calendar()">
+        <ion-icon name="ios-calendar-outline"></ion-icon>
+      </button>
+
+    <button class="crewWritingButton" right ion-button ion-only clear (click)="writing()">
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </button>
 
   </div>
 

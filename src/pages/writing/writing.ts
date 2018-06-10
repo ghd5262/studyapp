@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { NoticeProvider } from '../../providers/notice/notice';
 import { NetworkProvider } from '../../providers/network/network';
 
@@ -24,7 +24,8 @@ export class WritingPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private networkProvider: NetworkProvider,
-    private noticeProvider: NoticeProvider) {
+    private noticeProvider: NoticeProvider,
+    private alertCtrl: AlertController) {
     this.crewData = navParams.data.crewData;
     this.userData = networkProvider.userData;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
@@ -63,5 +64,14 @@ export class WritingPage {
       }, (err) => { })
 
     console.log(this.writing);
+  }
+
+  alert() { 
+    let alert = this.alertCtrl.create({
+      title: 'Native',
+      subTitle: 'Run in a device',
+      buttons: ['Confirm']
+    });
+    alert.present();
   }
 }

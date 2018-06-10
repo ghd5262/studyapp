@@ -7,7 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>글쓰기</ion-title>
+    <ion-grid>
+      <ion-row>
+        <p no-margin style="font-size: 18px">글쓰기</p>
+      </ion-row>
+      <ion-row>
+        <p no-margin style="font-size: 13px">{{crewData.name}}</p>
+      </ion-row>
+    </ion-grid>
+    <!-- <ion-title>글쓰기</ion-title> -->
     <!-- <ion-buttons left style="margin-left: 15px">
       <button navPop ion-button icon-only>
         <ion-icon name="arrow-back"></ion-icon>
@@ -46,4 +54,38 @@
         </p> -->
 
   </form>
+
+  <ion-grid no-padding style="top: 0px">
+    <ion-row no-padding>
+      <ion-col>
+        <button class="attach" no-margin ion-button icon-only clear (click)="alert()">
+          <ion-icon name="ios-camera-outline"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button class="attach" no-margin ion-button icon-only clear (click)="alert()">
+          <ion-icon name="ios-image-outline"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button class="attach" no-margin ion-button icon-only clear (click)="alert()">
+          <ion-icon name="ios-videocam-outline"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button class="attach" no-margin ion-button icon-only clear (click)="alert()">
+          <ion-icon name="ios-attach-outline"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col col-3></ion-col>
+      <ion-col>
+        <button class="attach" no-margin ion-button icon-only clear (click)="alert()">
+          <ion-icon name="ios-more-outline"></ion-icon>
+        </button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
 </ion-content>

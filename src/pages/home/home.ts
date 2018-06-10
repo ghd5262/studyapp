@@ -5,6 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { NetworkProvider } from '../../providers/network/network';
 import { CrewDetailPage } from '../crew-detail/crew-detail';
 import { CrewSearchPage } from '../crew-search/crew-search';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+// import { EventModalPage } from '../event-modal/event-modal';
+import { CalendarPage } from '../calendar/calendar';
 
 @Component({
   selector: 'page-home',
@@ -21,6 +24,8 @@ export class HomePage {
     private alertCtrl: AlertController) {
   }
 
+ 
+  private myphoto;
   ionViewDidLoad() {
     console.log('HomePage Loaded');
   }
@@ -28,7 +33,7 @@ export class HomePage {
   ionViewWillEnter() {
     console.log('ionViewWillEnter HomePage');
 
-    this.networkProvider.crewList().then((data:any)=>{
+    this.networkProvider.crewList().then((data: any) => {
       this.crewList = data;
     }, (err) => { })
   }
@@ -45,9 +50,45 @@ export class HomePage {
     this.navCtrl.push(CrewRagistrationPage);
   }
 
-  openCrewDetail(item : any) {
-    this.networkProvider.crewDataByIndex(item.id).then((crewData:any)=>{
-        this.navCtrl.push(CrewDetailPage, {crewData: crewData});
-    },(err)=>{})
+  openCrewDetail(item: any) {
+    this.networkProvider.crewDataByIndex(item.id).then((crewData: any) => {
+      this.navCtrl.push(CrewDetailPage, { crewData: crewData });
+    }, (err) => { })
   }
+
+  // takePhoto() {
+  
+  //   const options: CameraOptions = {
+  //     quality: 70,
+  //     destinationType: this.camera.DestinationType.DATA_URL,
+  //     encodingType: this.camera.EncodingType.JPEG,
+  //     mediaType: this.camera.MediaType.PICTURE
+  //   }
+
+  //   this.camera.getPicture(options).then((imageData) => {
+  //     // imageData is either a base64 encoded string or a file URI
+  //     // If it's base64:
+  //     this.myphoto = 'data:image/jpeg;base64,' + imageData;
+  //   }, (err) => {
+  //     // Handle error
+  //   });
+  // }
+
+  // getImage() {
+  
+  //   const options: CameraOptions = {
+  //     quality: 70,
+  //     destinationType: this.camera.DestinationType.DATA_URL,
+  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+  //     saveToPhotoAlbum:false
+  //   }
+
+  //   this.camera.getPicture(options).then((imageData) => {
+  //     // imageData is either a base64 encoded string or a file URI
+  //     // If it's base64:
+  //     this.myphoto = 'data:image/jpeg;base64,' + imageData;
+  //   }, (err) => {
+  //     // Handle error
+  //   });
+  // }
 }

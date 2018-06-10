@@ -1,0 +1,61 @@
+page-calendar {
+    .monthview-selected {
+      // background-color: green !important;
+      color: black!important;
+        .calendar-day {
+        outline-style: dashed;
+        outline-color: black!important;
+      }
+    }
+  
+    td.monthview-current {
+    //   color: white;
+    
+        .calendar-day {
+        // background-color: white!important;
+        color: #32db64;
+        font-weight: bold;
+      }
+    }
+    
+      .monthview-datetable {
+      border: 0!important;
+  
+      td, th {
+        border: 0!important;
+        padding: 3px!important;
+        background-color: transparent!important;
+      }
+    }
+    
+    .calendar-day {
+    border-radius: 6px;
+    padding: 3px 5px;
+    
+        &.color-1 {
+        background-color: rgb(255, 121, 121)
+      }
+        &.color-2 {
+        background-color: rgb(255, 175, 121)
+      }
+        &.color-3 {
+        background-color: rgb(255, 219, 121)
+      }
+        &.color-4 {
+        background-color: rgb(121, 255, 193)
+      }
+        &.color-5 {
+        background-color: rgb(121, 206, 255)
+      }
+        &.color-6 {
+        background-color: rgb(121, 152, 255)
+      }
+        &.color-7 {
+        background-color: rgb(179, 121, 255)
+      }
+        &.color-8 {
+        background-color: rgb(255, 121, 244)
+      }
+    }
+  }
+  

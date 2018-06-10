@@ -33,15 +33,28 @@ page-crew-detail {
         // background-color: red;
         position: relative;
         left: 8px;
-        top: 20px;
+        top: 10px;
         width: 95vw;
     }
     .crewWritingButton {
-        border: black;
-        background-color: black;
+        // border: black;
+        // background-color: black;
+        color: black;
+        zoom: 1.5;
         position: absolute;
         right:8px;
-        top: 15px;
+        top: 5px;
+        padding: 0px;
+    }
+    .crewScheduleButton {
+        // border: black;
+        // background-color: black;
+        color: black;
+        zoom: 1.5;
+        position: absolute;
+        right:32px;
+        top: 5px;
+        padding: 0px;
     }
     .crewMemberAddButton {
         position: absolute;
