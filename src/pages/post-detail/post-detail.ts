@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NetworkProvider } from '../../providers/network/network';
+import { ActionModalProvider } from '../../providers/action-modal/action-modal';
 
 /**
  * Generated class for the PostDetailPage page.
@@ -22,11 +23,14 @@ export class PostDetailPage {
   private writing;
   private commentList;
   private commentCount;
+  private userid;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private actionModal: ActionModalProvider) {
     this.crewData = navParams.data.crewData;
     this.postData = navParams.data.postData;
+    this.userid = this.networkProvider.userData.userid;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
 
     console.log(this.postData.content);
@@ -35,10 +39,7 @@ export class PostDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PostDetailPage');
-    this.networkProvider.commentListByPost(this.postData.id).then((commentList: any) => {
-      this.commentList = commentList;
-      this.commentCount = commentList.length;
-    }, (err: any) => { });
+    this.getCommentList();
   }
 
   ionViewWillEnter() {
@@ -47,6 +48,29 @@ export class PostDetailPage {
 
   ionViewWillLeave() {
     this.tabBarElement.style.display = 'flex';
+  }
+
+  getCommentList() {
+    this.networkProvider.commentListByPost(this.postData.id).then((commentList: any) => {
+      this.commentList = commentList;
+      this.commentCount = commentList.length;
+    }, (err: any) => { });
+  }
+
+  modifyPost(postData) {
+    this.actionModal.floatingModal(postData.userid, () => {}, () => {}, ()=>{
+      this.networkProvider.deletePost(postData.id).then((data:any)=>{
+        this.navCtrl.pop();
+      }, (err:any)=>{});
+    });
+  }
+
+  modifyComment(commentData) {
+    this.actionModal.floatingModal(commentData.userid, () => {}, () => {}, ()=>{
+      this.networkProvider.deleteComment(commentData.id).then((data:any)=>{
+        this.getCommentList();
+      }, (err:any)=>{});
+    });
   }
 
   complete() {

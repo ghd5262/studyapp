@@ -501,6 +501,76 @@ export class NetworkProvider {
     });
   }
 
+  // deleteSingleData(php, table, id) {
+  //   return new Promise((resolve, reject) => {
+  //     let options: any = {
+  //       "key": "delete",
+  //       "id": id,
+  //       "table": table
+  //     };
+
+  //     console.log(options);
+
+  //     this.post(php, options).then((res: any) => {
+  //       if (res.result = 'success') {
+  //         resolve();
+  //         this.noticeProvider.floatingNotice('성공적으로 삭제되었습니다.');
+  //       } else {
+  //         this.noticeProvider.floatingNotice('삭제 에러');
+  //       }
+  //     }, (err) => {
+  //       console.log('post-err:' + JSON.stringify(err));
+  //       this.noticeProvider.floatingNotice('서버 통신 에러');
+  //     });
+  //   });
+  // }
+
+  deletePost(id) {
+    return new Promise((resolve, reject) => {
+      let options: any = {
+        "key": "delete",
+        "id": id
+      };
+
+      console.log(options);
+
+      this.post("postUpdate.php", options).then((res: any) => {
+        if (res.result = 'success') {
+          resolve();
+          this.noticeProvider.floatingNotice('게시글이 성공적으로 삭제되었습니다.');
+        } else {
+          this.noticeProvider.floatingNotice('삭제 에러');
+        }
+      }, (err) => {
+        console.log('post-err:' + JSON.stringify(err));
+        this.noticeProvider.floatingNotice('서버 통신 에러');
+      });
+    });
+  }
+
+  deleteComment(id) {
+    return new Promise((resolve, reject) => {
+      let options: any = {
+        "key": "delete",
+        "id": id
+      };
+
+      console.log(options);
+
+      this.post("commentUpdate.php", options).then((res: any) => {
+        if (res.result = 'success') {
+          resolve();
+          this.noticeProvider.floatingNotice('댓글이 성공적으로 삭제되었습니다.');
+        } else {
+          this.noticeProvider.floatingNotice('삭제 에러');
+        }
+      }, (err) => {
+        console.log('post-err:' + JSON.stringify(err));
+        this.noticeProvider.floatingNotice('서버 통신 에러');
+      });
+    });
+  }
+
   post(url, options) {
     return new Promise((resolve, reject) => {
       let headers: any = new HttpHeaders({ 'Content-Type': 'application/json' }),

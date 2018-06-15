@@ -29,7 +29,7 @@
       </ion-col>
 
       <ion-col col-2 align-self-start justify-content-center style="margin-top: 0px">
-        <button ion-button clear no-margin>
+        <button ion-button clear no-margin (click)="modifyPost(postData)">
           <ion-icon name="more"></ion-icon>
         </button>
       </ion-col>
@@ -69,7 +69,7 @@
           </ion-col>
 
           <ion-col col-2 align-self-start justify-content-center style="margin-top: 0px">
-            <button ion-button clear no-margin>
+            <button ion-button clear no-margin (click)="modifyComment(comment)">
               <ion-icon name="more"></ion-icon>
             </button>
           </ion-col>
@@ -79,7 +79,7 @@
         <ion-row>
           <ion-col col-2></ion-col>
           <ion-col col-8>
-              <p class="b" style="margin-bottom: 0px; margin-top: 5px">{{comment.content}}</p>
+            <p class="b" style="margin-bottom: 0px; margin-top: 5px">{{comment.content}}</p>
           </ion-col>
         </ion-row>
 

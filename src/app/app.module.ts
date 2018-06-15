@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';
+import { NgCalendarModule } from 'ionic2-calendar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -33,7 +34,10 @@ import { PostDetailPage } from '../pages/post-detail/post-detail';
 import { CrewInvitePage } from '../pages/crew-invite/crew-invite';
 import { CrewCategoryDetailPage } from '../pages/crew-category-detail/crew-category-detail';
 import { AllCrewViewPage } from '../pages/all-crew-view/all-crew-view';
-
+// import { EventModalPage } from '../pages/event-modal/event-modal';
+import { CalendarPage } from '../pages/calendar/calendar';
+import { CategorySelectPage } from '../pages/category-select/category-select';
+import { ActionModalProvider } from '../providers/action-modal/action-modal';
 @NgModule({
   declarations: [
     MyApp,
@@ -55,13 +59,17 @@ import { AllCrewViewPage } from '../pages/all-crew-view/all-crew-view';
     PostDetailPage,
     CrewInvitePage,
     CrewCategoryDetailPage,
-    AllCrewViewPage
+    AllCrewViewPage, 
+    // EventModalPage,
+    CalendarPage,
+    CategorySelectPage
   ],
   imports: [
+    NgCalendarModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -84,7 +92,10 @@ import { AllCrewViewPage } from '../pages/all-crew-view/all-crew-view';
     PostDetailPage,
     CrewInvitePage,
     CrewCategoryDetailPage,
-    AllCrewViewPage
+    AllCrewViewPage,
+    // EventModalPage,
+    CalendarPage,
+    CategorySelectPage
   ],
   providers: [
     StatusBar,
@@ -96,7 +107,8 @@ import { AllCrewViewPage } from '../pages/all-crew-view/all-crew-view';
     RequestToCrewProvider,
     CrewProvider,
     Camera,
-    PictureProvider
+    PictureProvider,
+    ActionModalProvider,
   ]
 })
 export class AppModule {}

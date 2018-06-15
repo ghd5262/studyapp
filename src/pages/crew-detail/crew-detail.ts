@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
 import { WritingPage } from '../writing/writing';
 import { NetworkProvider } from '../../providers/network/network';
 import { PostDetailPage } from '../post-detail/post-detail';
 import { CrewInvitePage } from '../crew-invite/crew-invite';
 import { CalendarPage } from '../calendar/calendar';
+import { ActionModalProvider } from '../../providers/action-modal/action-modal';
 
 /**
  * Generated class for the CrewDetailPage page.
@@ -26,22 +27,22 @@ export class CrewDetailPage {
   private crewMemberCount: any;
   private postArray = [];
   private tabBarElement;
+  private userid;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private actionSheetCtrl: ActionSheetController,
+    private actionModal: ActionModalProvider) {
 
     this.crewData = navParams.data.crewData;
-
+    this.userid = networkProvider.userData.userid;
     console.log(this.crewData.id + ' crew loaded');
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
 
   }
   
   ionViewDidLoad() {
-    this.networkProvider.postListInCrew(this.crewData.id).then((postArray:any)=>{
-      this.postArray = postArray;
-    }, (err:any)=>{});
 
     this.networkProvider.isCrewMember(this.crewData.id).then((isCrewMember:any)=>{
       this.isCrewMember = isCrewMember;
@@ -54,6 +55,8 @@ export class CrewDetailPage {
     this.networkProvider.crewMemberCount(this.crewData.id).then((count:any)=>{
       this.crewMemberCount = count;
     }, (err:any)=>{});
+
+    this.getPostList();
    
   }
 
@@ -61,13 +64,17 @@ export class CrewDetailPage {
     console.log('ionViewWillEnter CrewDetailPage');
     this.tabBarElement.style.display = 'none';
 
-    this.networkProvider.postListInCrew(this.crewData.id).then((postArray:any)=>{
-      this.postArray = postArray;
-    }, (err:any)=>{});
+    this.getPostList();
   }
 
   ionViewWillLeave() {
     this.tabBarElement.style.display = 'flex';
+  }
+
+  getPostList() {
+    this.networkProvider.postListInCrew(this.crewData.id).then((postArray:any)=>{
+      this.postArray = postArray;
+    }, (err:any)=>{});
   }
 
   addMember() {
@@ -90,5 +97,13 @@ export class CrewDetailPage {
 
   calendar() {
     this.navCtrl.push(CalendarPage, {crewData: this.crewData});
+  }
+
+  modifyPost(postData) {
+    this.actionModal.floatingModal(postData.userid, () => {}, () => {}, ()=>{
+      this.networkProvider.deletePost(postData.id).then((data:any)=>{
+        this.getPostList();
+      }, (err:any)=>{});
+    });
   }
 }

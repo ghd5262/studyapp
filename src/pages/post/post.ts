@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import { WelcomePage } from '../welcome/welcome';
 import { NetworkProvider } from '../../providers/network/network';
 import { PostDetailPage } from '../post-detail/post-detail';
+import { ActionModalProvider } from '../../providers/action-modal/action-modal';
 
 @Component({
   selector: 'page-post',
@@ -13,17 +14,18 @@ export class PostPage {
 
 
   private postArray = [];
+  userid;
   constructor(public navCtrl: NavController,
     private alertCtrl: AlertController,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private actionModal: ActionModalProvider) {
     console.log('ionViewDidLoad PostPage');
   }
 
   ionViewWillEnter() {
     console.log('post page reloaded');
-    this.networkProvider.postListAll().then((postArray: any) => {
-      this.postArray = postArray;
-    }, (err) => { })
+    this.getPostListAll();
+    this.userid = this.networkProvider.userData.userid;
   }
 
   logout() {
@@ -59,5 +61,19 @@ export class PostPage {
     this.networkProvider.crewDataByIndex(postData.crewid).then((crewData:any)=>{
       this.navCtrl.push(PostDetailPage, { crewData: crewData, postData: postData });
     },(err)=>{})
+  }
+
+  getPostListAll() {
+    this.networkProvider.postListAll().then((postArray: any) => {
+      this.postArray = postArray;
+    }, (err) => { })
+  }
+  
+  modifyPost(postData) {
+    this.actionModal.floatingModal(postData.userid, () => {}, () => {}, ()=>{
+      this.networkProvider.deletePost(postData.id).then((data:any)=>{
+        this.getPostListAll();
+      }, (err:any)=>{});
+    });
   }
 }

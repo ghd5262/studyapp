@@ -40,8 +40,7 @@ export class MyApp {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log("HomePage");
-        this.networkProvider.userData.useremail = user.email;
-        this.networkProvider.userDataByEmail().then(() => {
+        this.networkProvider.userDataByEmail(user.email).then(() => {
             this.rootPage = TabPage;
         }, () => { });
 
