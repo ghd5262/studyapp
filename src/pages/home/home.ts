@@ -8,6 +8,7 @@ import { CrewSearchPage } from '../crew-search/crew-search';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 // import { EventModalPage } from '../event-modal/event-modal';
 import { CalendarPage } from '../calendar/calendar';
+import { CategorySelectPage } from '../category-select/category-select';
 
 @Component({
   selector: 'page-home',
@@ -47,7 +48,7 @@ export class HomePage {
     // modal.present();
 
     // modal.onWillDismiss((data: any[]) => {});
-    this.navCtrl.push(CrewRagistrationPage);
+    this.navCtrl.push(CategorySelectPage);
   }
 
   openCrewDetail(item: any) {

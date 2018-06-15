@@ -23,12 +23,12 @@
     <ion-list no-padding>
 
       <ion-card *ngFor="let post of postArray; let i = index;">
-        
+
         <ion-grid no-padding style="margin: 10px !important;">
           <ion-row align-items-center>
 
             <ion-col col-2>
-              <img class="thumbnail" src="assets/imgs/dogs_s.jpg">
+              <img class="thumbnail" src="{{post.thumbnail}}">
             </ion-col>
 
             <ion-col col-8>

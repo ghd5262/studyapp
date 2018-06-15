@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NetworkProvider } from '../../providers/network/network';
-import { AllCrewViewPage } from '../all-crew-view/all-crew-view';
+import { CrewRagistrationPage } from '../crew-ragistration/crew-ragistration';
 
 /**
- * Generated class for the CrewCategoryDetailPage page.
+ * Generated class for the CategorySelectPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,26 +12,27 @@ import { AllCrewViewPage } from '../all-crew-view/all-crew-view';
 
 @IonicPage()
 @Component({
-  selector: 'page-crew-category-detail',
-  templateUrl: 'crew-category-detail.html',
+  selector: 'page-category-select',
+  templateUrl: 'category-select.html',
 })
-export class CrewCategoryDetailPage {
+export class CategorySelectPage {
+  crewCategoryList : any[];
+  initial : boolean;
+  tabBarElement;
 
-  private crewCategoryList;
-  private tabBarElement;
-  constructor(public navCtrl: NavController,
+  constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private networkProvider: NetworkProvider) {
-
-    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
-    this.networkProvider.crewCategoryList().then((categoryList: any) => {
-      this.crewCategoryList = categoryList;
-
-    }, (err: any) => { });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CrewCategoryDetailPage');
+    console.log('ionViewDidLoad CategorySelectPage');
+    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+
+    this.networkProvider.crewCategoryList().then((categoryList: any) => {
+      this.crewCategoryList = categoryList;
+      this.initial = true;
+    }, (err: any) => { });
   }
 
   ionViewWillEnter() {
@@ -39,12 +40,18 @@ export class CrewCategoryDetailPage {
   }
 
   ionViewWillLeave() {
-    this.tabBarElement.style.display = 'flex';
+    this.tabBarElement.style.display = 'flex'; 
   }
 
-  openCategory(categoryData) {
-    this.networkProvider.categoryListByIndex(30, categoryData.id - 1).then((categoryList: any) => {
-      this.navCtrl.push(AllCrewViewPage, { title: categoryData.name, crewList: categoryList });
-    }, (err: any) => { });
+  getIndex(colSize, i, j) {
+    return (i * colSize) + j;
+  }
+
+  getCrewByIndex(index) {
+    return this.crewCategoryList[index];
+  }
+
+  createCrew(index) {
+    this.navCtrl.push(CrewRagistrationPage, { index: index });
   }
 }

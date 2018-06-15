@@ -23,12 +23,14 @@ export class CrewRagistrationPage {
     description: '',
     img: ''
   }
+  categoryIndex;
   private tabBarElement;
   constructor(public navCtrl: NavController,
     private networkProvider: NetworkProvider,
     private alertController: AlertController,
     public navParams: NavParams) {
       this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+      this.categoryIndex = navParams.data.index;
   }
 
   ionViewDidLoad() {
@@ -49,10 +51,10 @@ export class CrewRagistrationPage {
     console.log("description : " + this.crew.description);
 
     // let body = {name: this.crew.name, description: this.crew.description};
-    // this.crew.img = "assets/imgs/study_" + (Math.floor(Math.random() * (4 - 1 + 1)) + 1) + ".jpg";
-    this.crew.img = "assets/imgs/board.jpg";
+    this.crew.img = "assets/imgs/study_" + (Math.floor(Math.random() * (11 - 1 + 1)) + 1) + ".jpg";
+    // this.crew.img = "assets/imgs/board.jpg";
     let userid = this.networkProvider.userData.userid;
-    this.networkProvider.crewAdd(userid, this.crew.name, this.crew.description, this.crew.img).then((res: any) => {
+    this.networkProvider.crewAdd(userid, this.crew.name, this.crew.description, this.crew.img, this.categoryIndex).then((res: any) => {
       this.navCtrl.setRoot(TabPage);
     });
   }

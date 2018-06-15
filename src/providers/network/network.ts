@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Platform, ToastController } from 'ionic-angular';
+import { Platform, ToastController, Thumbnail } from 'ionic-angular';
 import { NoticeProvider } from '../notice/notice';
 import { RequestOptions } from '@angular/http';
 
@@ -26,7 +26,8 @@ export class NetworkProvider {
     userid: -1,
     username: '',
     useremail: '',
-    userpassword: ''
+    userpassword: '',
+    thumbnail: ''
   }
 
   // public crewArray: Array<any> = [];
@@ -36,8 +37,9 @@ export class NetworkProvider {
     MYDATA_BY_EMAIL: "myDataByEmail",
     MYCREW_LIST: "myCrewList",
     CREWDATA_BY_INDEX: "crewDataByIndex",
-    CREW_CATEGORY_LIST: "crewCategoryList",
+    CREW_CATEGORY_LIST: "crewCategoryList", // 카테고리 메타리스트
     NEW_CREW_LIST: "newCrewList",
+    CATEGORY_CREW_LIST: "categoryCrewList",
     RECOMMEND_CREW_LIST: "recommendCrewList",
     IS_CREW_MEMBER: "isCrewMember",
     CREW_APPLY_LIST: "crewApplyList",
@@ -55,14 +57,15 @@ export class NetworkProvider {
     console.log('Hello NetworkProvider Provider');
   }
 
-  crewAdd(userid, name, description, img) {
+  crewAdd(userid, name, description, img, categoryindex) {
     return new Promise((resolve, reject) => {
       let options: any = {
         "key": "create",
         "name": name,
         "description": description,
         "img": img,
-        "userid": userid
+        "userid": userid,
+        "categoryindex": categoryindex
       };
 
       this.post("crewUpdate.php", options).then((res: any) => {
@@ -183,6 +186,21 @@ export class NetworkProvider {
     });
   }
 
+  categoryListByIndex(count, categoryindex) {
+    console.log('category list load request ');
+
+    return new Promise((resolve, reject) => {
+
+      this.get(this.PHP_GETKEY.CATEGORY_CREW_LIST, "crewData.php", ('count=' + count + '&categoryindex=' + categoryindex)).then((data: any) => {
+        console.log('category list load complete');
+        resolve(data);
+      }, (err) => {
+        console.log('categoryListByIndex() error : ' + err.message);
+        reject(err);
+      });
+    });
+  }
+
   isCrewMember(crewid) {
     return new Promise((resolve, reject) => {
 
@@ -253,11 +271,13 @@ export class NetworkProvider {
   }
 
   signup(name, email, password) {
+    let thumbnail = "assets/imgs/profile_" + (Math.floor(Math.random() * (13 - 1 + 1)) + 1) + ".jpg";
     let options: any = {
       "key": "create",
       "username": name,
       "useremail": email,
-      "userpassword": password
+      "userpassword": password,
+      "thumbnail": thumbnail
     };
 
     this.post("userUpdate.php", options).then((res: any) => {
@@ -268,6 +288,7 @@ export class NetworkProvider {
         this.userData.username = name;
         this.userData.useremail = email;
         this.userData.userpassword = password;
+        this.userData.thumbnail = thumbnail;
 
         console.dir(this.userData);
       } else {
@@ -279,9 +300,9 @@ export class NetworkProvider {
     });
   }
 
-  userDataByEmail() {
+  userDataByEmail(email) {
     return new Promise((resolve, reject) => {
-      this.get(this.PHP_GETKEY.MYDATA_BY_EMAIL, "userData.php", ('useremail=' + this.userData.useremail)).then((data: any) => {
+      this.get(this.PHP_GETKEY.MYDATA_BY_EMAIL, "userData.php", ('useremail=' + email)).then((data: any) => {
 
         this.userData = data;
         console.log(this.userData);

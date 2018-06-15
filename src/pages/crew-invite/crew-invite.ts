@@ -30,9 +30,7 @@ export class CrewInvitePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CrewInvitePage');
-    this.networkProvider.crewApplyList(this.crewData.id).then((applyList: any) => {
-      this.applyList = applyList;
-    }, (err: any) => { });
+    this.getApplyList();
   }
 
   ionViewWillEnter() {
@@ -43,11 +41,21 @@ export class CrewInvitePage {
     this.tabBarElement.style.display = 'flex';
   }
 
+  getApplyList() {
+    this.networkProvider.crewApplyList(this.crewData.id).then((applyList: any) => {
+      this.applyList = applyList;
+    }, (err: any) => { });
+  }
+
   accept(user: any) {
-    this.networkProvider.crewJoin(user.userid, this.crewData.id, true);
+    this.networkProvider.crewJoin(user.userid, this.crewData.id, true).then((data: any) =>{
+      this.getApplyList();
+    });
   }
 
   refuse(user: any) {
-    this.networkProvider.crewJoin(user.userid, this.crewData.id, false);
+    this.networkProvider.crewJoin(user.userid, this.crewData.id, false).then((data: any) =>{
+      this.getApplyList();
+    });
   }
 }

@@ -52,7 +52,7 @@ export class WritingPage {
 
 
     this.networkProvider.writing(
-      this.crewData.userid,
+      this.userData.userid,
       this.crewData.id,
       this.userData.username,
       this.userData.useremail,

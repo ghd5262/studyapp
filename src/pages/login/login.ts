@@ -6,6 +6,7 @@ import { LoginProvider } from '../../providers/login/login';
 import * as firebase from 'firebase';
 import { NoticeProvider } from '../../providers/notice/notice';
 import { TabPage } from '../tab/tab';
+import { NetworkProvider } from '../../providers/network/network';
 
 
 @IonicPage()
@@ -23,7 +24,8 @@ export class LoginPage {
     private noticeProvider: NoticeProvider,
     private loginProvider: LoginProvider,
     private alertCtrl: AlertController,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private networkProvider: NetworkProvider) {
   }
 
   ionViewDidLoad() {
@@ -33,14 +35,18 @@ export class LoginPage {
   login() {
 
     this.noticeProvider.loadingProgressOn();
-    this.loginProvider.myApp(this.loginAccount.email, this.loginAccount.password).then((res:any)=>{
-      if(res.result='success'){
+    this.loginProvider.myApp(this.loginAccount.email, this.loginAccount.password).then((res: any) => {
+      if (res.result = 'success') {
+
+        this.networkProvider.userDataByEmail(this.loginAccount.email).then(() => {
+          this.navCtrl.setRoot(TabPage);
+        }, () => { });
+
         console.log('login success');
-        this.navCtrl.setRoot(TabPage);
-      }else{
+      } else {
         this.noticeProvider.floatingNotice("로그인 실패!");
       }
-    },(err)=>{
+    }, (err) => {
       console.log('login failed');
       this.noticeProvider.floatingNotice("아이디와 비밀번호를 다시 확인해주세요.");
     });;

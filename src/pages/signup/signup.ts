@@ -14,7 +14,8 @@ export class SignupPage {
   private signupAccount: any = {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    thumbnail: ''
   }
   constructor(public navCtrl: NavController, 
     private networkProvider: NetworkProvider,
