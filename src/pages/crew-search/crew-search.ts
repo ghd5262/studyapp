@@ -4,6 +4,7 @@ import { NetworkProvider } from '../../providers/network/network';
 import { CrewDetailPage } from '../crew-detail/crew-detail';
 import { CrewCategoryDetailPage } from '../crew-category-detail/crew-category-detail';
 import { AllCrewViewPage } from '../all-crew-view/all-crew-view';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the CrewSearchPage page.
@@ -26,7 +27,8 @@ export class CrewSearchPage {
   tabBarElement;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private ga: GoogleAnalytics) {
     this.userData = networkProvider.userData;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
   }
@@ -60,24 +62,28 @@ export class CrewSearchPage {
   }
 
   openCategory(categoryData) {
+    this.ga.trackEvent('studySearch', 'openCategory');
     this.networkProvider.categoryListByIndex(30, categoryData.id-1).then((categoryList: any) => {
       this.navCtrl.push(AllCrewViewPage, { title: categoryData.name, crewList: categoryList});
     }, (err: any) => { });
   }
 
   openAllNewCrewList() {
+    this.ga.trackEvent('studySearch', 'openAllNewStudy');
     this.networkProvider.newCrewList(30).then((newCrewList: any) => {
       this.navCtrl.push(AllCrewViewPage, { title: 'New 스터디', crewList: newCrewList });
     }, (err: any) => { });
   }
 
   openAllRecCrewList() {
+    this.ga.trackEvent('studySearch', 'openAllRecommendStudy');
     this.networkProvider.recommendCrewList(this.userData.userid, 30).then((recommendCrewList: any) => {
       this.navCtrl.push(AllCrewViewPage, { title: '이런 스터디는 어떤가요?', crewList: recommendCrewList });
     }, (err: any) => { });
   }
 
   openCrewDetail(crewData) {
+    this.ga.trackEvent('studySearch', 'openStudyDetail');
     this.networkProvider.crewDataByIndex(crewData.id).then((crewData: any) => {
       this.navCtrl.push(CrewDetailPage, { crewData: crewData });
     }, (err) => { })

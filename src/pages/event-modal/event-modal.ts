@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import * as moment from 'moment';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 @IonicPage()
 @Component({
@@ -15,7 +16,8 @@ export class EventModalPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private viewCtrl: ViewController,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    private ga: GoogleAnalytics) {
     let preselectedDate = moment(this.navParams.get('selectedDay')).format();
 
     console.log(preselectedDate);
@@ -32,6 +34,7 @@ export class EventModalPage {
   }
 
   colorPick() {
+    this.ga.trackEvent('scheduleDetail', 'colorPick');
     let modal = this.modalCtrl.create('ColorPickModalPage');
     modal.present();
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NetworkProvider } from '../../providers/network/network';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the CrewInvitePage page.
@@ -21,7 +22,8 @@ export class CrewInvitePage {
   private tabBarElement;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private ga: GoogleAnalytics) {
 
     this.crewData = navParams.data.crewData;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
@@ -51,11 +53,13 @@ export class CrewInvitePage {
     this.networkProvider.crewJoin(user.userid, this.crewData.id, true).then((data: any) =>{
       this.getApplyList();
     });
+    this.ga.trackEvent('studyInvite', 'accept');
   }
 
   refuse(user: any) {
     this.networkProvider.crewJoin(user.userid, this.crewData.id, false).then((data: any) =>{
       this.getApplyList();
     });
+    this.ga.trackEvent('studyInvite', 'refuse');
   }
 }

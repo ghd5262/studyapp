@@ -4,6 +4,7 @@ import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 import { LoginOptionPage } from '../login-option/login-option';
 import { LoginProvider } from '../../providers/login/login';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the WelcomePage page.
@@ -21,7 +22,8 @@ export class WelcomePage {
 
   constructor(public navCtrl: NavController, 
     private loginProvider: LoginProvider,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private ga: GoogleAnalytics) {
   }
 
   ionViewDidLoad() {
@@ -33,14 +35,17 @@ export class WelcomePage {
   }
 
   signup() {
+    this.ga.trackEvent('welcome', 'signup');
     this.navCtrl.push(SignupPage);
   }
 
   loginOptions() {
+    this.ga.trackEvent('welcome', 'loginOptions');
     this.navCtrl.push(LoginOptionPage);
   }
 
   login() {
+    this.ga.trackEvent('welcome', 'login');
     this.navCtrl.push(LoginPage);
   }
 }

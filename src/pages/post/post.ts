@@ -5,6 +5,7 @@ import { WelcomePage } from '../welcome/welcome';
 import { NetworkProvider } from '../../providers/network/network';
 import { PostDetailPage } from '../post-detail/post-detail';
 import { ActionModalProvider } from '../../providers/action-modal/action-modal';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 @Component({
   selector: 'page-post',
@@ -18,7 +19,8 @@ export class PostPage {
   constructor(public navCtrl: NavController,
     private alertCtrl: AlertController,
     private networkProvider: NetworkProvider,
-    private actionModal: ActionModalProvider) {
+    private actionModal: ActionModalProvider,
+    private ga: GoogleAnalytics) {
     console.log('ionViewDidLoad PostPage');
   }
 
@@ -26,6 +28,7 @@ export class PostPage {
     console.log('post page reloaded');
     this.getPostListAll();
     this.userid = this.networkProvider.userData.userid;
+    this.ga.trackView('post');
   }
 
   logout() {
@@ -58,6 +61,7 @@ export class PostPage {
   }
 
   postDetail(postData) {
+    this.ga.trackEvent('post', 'postDetail');
     this.networkProvider.crewDataByIndex(postData.crewid).then((crewData:any)=>{
       this.navCtrl.push(PostDetailPage, { crewData: crewData, postData: postData });
     },(err)=>{})

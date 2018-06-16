@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Events, AlertController } from 'ionic-angular';
 import * as moment from 'moment';
 import { NetworkProvider } from '../../providers/network/network';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the CalendarPage page.
@@ -38,7 +39,8 @@ export class CalendarPage {
     public navParams: NavParams,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private ga: GoogleAnalytics) {
 
     this.crewData = navParams.data.crewData;
   }
@@ -55,6 +57,9 @@ export class CalendarPage {
         this.scheduleUpdate(data);
       }
     });
+
+    this.ga.trackEvent('calendar', 'addEvent');
+
   }
 
   ionViewDidLoad() {

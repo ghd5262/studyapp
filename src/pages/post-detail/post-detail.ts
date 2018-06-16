@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NetworkProvider } from '../../providers/network/network';
 import { ActionModalProvider } from '../../providers/action-modal/action-modal';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the PostDetailPage page.
@@ -27,7 +28,8 @@ export class PostDetailPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private networkProvider: NetworkProvider,
-    private actionModal: ActionModalProvider) {
+    private actionModal: ActionModalProvider,
+    private ga: GoogleAnalytics) {
     this.crewData = navParams.data.crewData;
     this.postData = navParams.data.postData;
     this.userid = this.networkProvider.userData.userid;
@@ -38,6 +40,7 @@ export class PostDetailPage {
   }
 
   ionViewDidLoad() {
+    this.ga.trackView('post/detail');
     console.log('ionViewDidLoad PostDetailPage');
     this.getCommentList();
   }
@@ -74,6 +77,7 @@ export class PostDetailPage {
   }
 
   complete() {
+    this.ga.trackEvent('postDetail', 'writeComment'); 
     console.log(this.writing);
     this.networkProvider.writeComment(this.crewData.id, this.postData.id, this.writing).then((applyList: any) => {
       this.networkProvider.commentListByPost(this.postData.id).then((commentList: any) => {

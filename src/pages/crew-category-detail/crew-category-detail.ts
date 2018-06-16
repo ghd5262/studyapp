@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NetworkProvider } from '../../providers/network/network';
 import { AllCrewViewPage } from '../all-crew-view/all-crew-view';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the CrewCategoryDetailPage page.
@@ -21,7 +22,8 @@ export class CrewCategoryDetailPage {
   private tabBarElement;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private ga: GoogleAnalytics) {
 
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.networkProvider.crewCategoryList().then((categoryList: any) => {
@@ -43,6 +45,7 @@ export class CrewCategoryDetailPage {
   }
 
   openCategory(categoryData) {
+    this.ga.trackEvent('studyCategoryDetail', 'openAllStudy');
     this.networkProvider.categoryListByIndex(30, categoryData.id - 1).then((categoryList: any) => {
       this.navCtrl.push(AllCrewViewPage, { title: categoryData.name, crewList: categoryList });
     }, (err: any) => { });

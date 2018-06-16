@@ -6,6 +6,7 @@ import { PostDetailPage } from '../post-detail/post-detail';
 import { CrewInvitePage } from '../crew-invite/crew-invite';
 import { CalendarPage } from '../calendar/calendar';
 import { ActionModalProvider } from '../../providers/action-modal/action-modal';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the CrewDetailPage page.
@@ -33,7 +34,8 @@ export class CrewDetailPage {
     private modalCtrl: ModalController,
     private networkProvider: NetworkProvider,
     private actionSheetCtrl: ActionSheetController,
-    private actionModal: ActionModalProvider) {
+    private actionModal: ActionModalProvider,
+    private ga: GoogleAnalytics) {
 
     this.crewData = navParams.data.crewData;
     this.userid = networkProvider.userData.userid;
@@ -78,29 +80,35 @@ export class CrewDetailPage {
   }
 
   addMember() {
+    this.ga.trackEvent('studyDetail', 'addMember');
     this.navCtrl.push(CrewInvitePage, {crewData: this.crewData});
   }
 
   writing() {
     // let modal = this.modalCtrl.create(WritingPage, { crewData: this.crewData });
     // modal.present();
+    this.ga.trackEvent('studyDetail', 'writing');
     this.navCtrl.push(WritingPage, { crewData: this.crewData });
   }
 
   apply() {
+    this.ga.trackEvent('studyDetail', 'apply', this.crewData.cname);
     this.networkProvider.crewApply(this.crewData);
   }
 
   postDetail(postData) {
+    this.ga.trackEvent('studyDetail', 'postDetail');
     this.navCtrl.push(PostDetailPage, { crewData: this.crewData, postData: postData });
   }
 
   calendar() {
+    this.ga.trackEvent('studyDetail', 'calendar');
     this.navCtrl.push(CalendarPage, {crewData: this.crewData});
   }
 
   modifyPost(postData) {
-    this.actionModal.floatingModal(postData.userid, () => {}, () => {}, ()=>{
+    this.ga.trackEvent('studyDetail', 'modifyPost');
+    this.actionModal.floatingModal(postData.userid, postData.id, () => {}, ()=>{
       this.networkProvider.deletePost(postData.id).then((data:any)=>{
         this.getPostList();
       }, (err:any)=>{});

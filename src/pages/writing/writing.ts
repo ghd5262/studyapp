@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { NoticeProvider } from '../../providers/notice/notice';
 import { NetworkProvider } from '../../providers/network/network';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the WritingPage page.
@@ -25,7 +26,8 @@ export class WritingPage {
     public navParams: NavParams,
     private networkProvider: NetworkProvider,
     private noticeProvider: NoticeProvider,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private ga: GoogleAnalytics) {
     this.crewData = navParams.data.crewData;
     this.userData = networkProvider.userData;
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
@@ -44,6 +46,7 @@ export class WritingPage {
     this.tabBarElement.style.display = 'flex';
   }
   complete() {
+    this.ga.trackEvent('writing', 'writingComplete');
 
     // this.writing = this.writing.replace(/&#10;/gi, "\n\r");
 

@@ -38,6 +38,7 @@ import { AllCrewViewPage } from '../pages/all-crew-view/all-crew-view';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { CategorySelectPage } from '../pages/category-select/category-select';
 import { ActionModalProvider } from '../providers/action-modal/action-modal';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 @NgModule({
   declarations: [
     MyApp,
@@ -109,6 +110,7 @@ import { ActionModalProvider } from '../providers/action-modal/action-modal';
     Camera,
     PictureProvider,
     ActionModalProvider,
+    GoogleAnalytics
   ]
 })
 export class AppModule {}

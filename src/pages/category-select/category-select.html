@@ -24,7 +24,7 @@
 
         <button no-padding style="width: 80px; height: 80px;" *ngIf="initial === true" (click)="createCrew(this.getIndex(3, i, j))">
           <img class="thumb" src="{{this.getCrewByIndex(this.getIndex(3, i, j)).img}}" />
-          <p class="text">{{this.getCrewByIndex(this.getIndex(3, i, j)).name}}</p>
+          <p class="text">{{this.getCrewByIndex(this.getIndex(3, i, j)).cname}}</p>
         </button>
 
       </ion-col>

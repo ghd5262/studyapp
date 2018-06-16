@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import { NoticeProvider } from '../../providers/notice/notice';
 import { TabPage } from '../tab/tab';
 import { NetworkProvider } from '../../providers/network/network';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 
 @IonicPage()
@@ -25,11 +26,13 @@ export class LoginPage {
     private loginProvider: LoginProvider,
     private alertCtrl: AlertController,
     public navParams: NavParams,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private ga: GoogleAnalytics) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    this.ga.trackView('login');
   }
 
   login() {
@@ -55,9 +58,12 @@ export class LoginPage {
 
   signup() {
     this.navCtrl.push(SignupPage);
+    this.ga.trackEvent('login', 'signup');
   }
 
   resetEmail() {
+
+    this.ga.trackEvent('login', 'resetEmail');
 
     let alert = this.alertCtrl.create({
       title: '비밀번호 초기화',

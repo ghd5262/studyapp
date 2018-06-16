@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import * as firebase from 'firebase';
 import { NetworkProvider } from '../../providers/network/network';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 @IonicPage()
 @Component({
@@ -19,14 +20,18 @@ export class SignupPage {
   }
   constructor(public navCtrl: NavController, 
     private networkProvider: NetworkProvider,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private ga: GoogleAnalytics) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
+    this.ga.trackView('signup');
   }
 
   signup() {
+    this.ga.trackEvent('signup', 'signupComplete');
+
     firebase.auth().createUserWithEmailAndPassword(this.signupAccount.email, this.signupAccount.password)
       .then((result) => {
         console.log(result);

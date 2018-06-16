@@ -6,8 +6,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { WelcomePage } from '../pages/welcome/welcome';
 import * as firebase from 'firebase';
+
 import { TabPage } from '../pages/tab/tab';
 import { NetworkProvider } from '../providers/network/network';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 // Initialize Firebase
 var config = {
@@ -28,12 +30,21 @@ export class MyApp {
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    private networkProvider: NetworkProvider) {
+    private networkProvider: NetworkProvider,
+    private ga: GoogleAnalytics) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.ga.startTrackerWithId('UA-106592601-2')
+      .then(() => {
+        console.log('Google analytics is ready now');
+        this.ga.trackView('start');
+        // Tracker is ready
+        // You can now track pages or set additional information such as AppVersion or UserId
+      })
+      .catch(e => console.log('Error starting GoogleAnalytics', e));
     });
 
     firebase.initializeApp(config);
@@ -41,7 +52,7 @@ export class MyApp {
       if (user) {
         console.log("HomePage");
         this.networkProvider.userDataByEmail(user.email).then(() => {
-            this.rootPage = TabPage;
+          this.rootPage = TabPage;
         }, () => { });
 
       } else {

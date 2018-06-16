@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { NetworkProvider } from '../../providers/network/network';
 import { HomePage } from '../home/home';
 import { TabPage } from '../tab/tab';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the CrewRagistrationPage page.
@@ -25,12 +26,17 @@ export class CrewRagistrationPage {
   }
   categoryIndex;
   private tabBarElement;
+  crewCategoryList;
   constructor(public navCtrl: NavController,
     private networkProvider: NetworkProvider,
     private alertController: AlertController,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private ga: GoogleAnalytics) {
       this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
       this.categoryIndex = navParams.data.index;
+      this.networkProvider.crewCategoryList().then((categoryList: any) => {
+        this.crewCategoryList = categoryList;
+      }, (err: any) => { });
   }
 
   ionViewDidLoad() {
@@ -49,6 +55,8 @@ export class CrewRagistrationPage {
 
     console.log("name : " + this.crew.name);
     console.log("description : " + this.crew.description);
+    let categoryName = this.crewCategoryList[this.categoryIndex].cname;
+    this.ga.trackEvent('studyCreate', 'create', categoryName);
 
     // let body = {name: this.crew.name, description: this.crew.description};
     this.crew.img = "assets/imgs/study_" + (Math.floor(Math.random() * (11 - 1 + 1)) + 1) + ".jpg";

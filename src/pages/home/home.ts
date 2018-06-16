@@ -9,6 +9,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 // import { EventModalPage } from '../event-modal/event-modal';
 import { CalendarPage } from '../calendar/calendar';
 import { CategorySelectPage } from '../category-select/category-select';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 @Component({
   selector: 'page-home',
@@ -22,13 +23,16 @@ export class HomePage {
     public http: HttpClient,
     private networkProvider: NetworkProvider,
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private camera: Camera,
+    private ga: GoogleAnalytics) {
   }
 
  
   private myphoto;
   ionViewDidLoad() {
     console.log('HomePage Loaded');
+    this.ga.trackView('home');
   }
 
   ionViewWillEnter() {
@@ -41,6 +45,7 @@ export class HomePage {
 
   search() {
     this.navCtrl.push(CrewSearchPage);
+    this.ga.trackEvent('home', 'search');
   }
 
   registration() {
@@ -49,47 +54,55 @@ export class HomePage {
 
     // modal.onWillDismiss((data: any[]) => {});
     this.navCtrl.push(CategorySelectPage);
+    this.ga.trackEvent('home', 'createStudy');
   }
 
   openCrewDetail(item: any) {
     this.networkProvider.crewDataByIndex(item.id).then((crewData: any) => {
       this.navCtrl.push(CrewDetailPage, { crewData: crewData });
     }, (err) => { })
+    this.ga.trackEvent('home', 'openStudyDetail');
   }
 
-  // takePhoto() {
+  takePhoto() {
   
-  //   const options: CameraOptions = {
-  //     quality: 70,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     encodingType: this.camera.EncodingType.JPEG,
-  //     mediaType: this.camera.MediaType.PICTURE
-  //   }
+    const options: CameraOptions = {
+      quality: 70,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
 
-  //   this.camera.getPicture(options).then((imageData) => {
-  //     // imageData is either a base64 encoded string or a file URI
-  //     // If it's base64:
-  //     this.myphoto = 'data:image/jpeg;base64,' + imageData;
-  //   }, (err) => {
-  //     // Handle error
-  //   });
-  // }
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.myphoto = 'data:image/jpeg;base64,' + imageData;
 
-  // getImage() {
+      console.log(this.myphoto);
+
+    }, (err) => {
+      // Handle error
+    });
+  }
+
+  getImage() {
   
-  //   const options: CameraOptions = {
-  //     quality: 70,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-  //     saveToPhotoAlbum:false
-  //   }
+    const options: CameraOptions = {
+      quality: 70,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum:false
+    }
 
-  //   this.camera.getPicture(options).then((imageData) => {
-  //     // imageData is either a base64 encoded string or a file URI
-  //     // If it's base64:
-  //     this.myphoto = 'data:image/jpeg;base64,' + imageData;
-  //   }, (err) => {
-  //     // Handle error
-  //   });
-  // }
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.myphoto = 'data:image/jpeg;base64,' + imageData;
+
+      console.log(this.myphoto);
+
+    }, (err) => {
+      // Handle error
+    });
+  }
 }

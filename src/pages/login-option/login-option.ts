@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 /**
  * Generated class for the LoginOptionPage page.
@@ -18,19 +19,23 @@ export class LoginOptionPage {
 
   constructor(public navCtrl: NavController, 
     private loginProvider: LoginProvider,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private ga: GoogleAnalytics) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginOptionPage');
+    this.ga.trackView('login/loginOption');
   }
 
   facebookLogin() {
     this.loginProvider.facebook();
+    this.ga.trackEvent('loginOption', 'facebook');
   }
 
   googleLogin() {
     this.loginProvider.google();
+    this.ga.trackEvent('loginOption', 'google');
   }
 
 }
