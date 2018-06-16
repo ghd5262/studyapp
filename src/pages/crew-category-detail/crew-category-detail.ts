@@ -46,7 +46,7 @@ export class CrewCategoryDetailPage {
 
   openCategory(categoryData) {
     this.ga.trackEvent('studyCategoryDetail', 'openAllStudy');
-    this.networkProvider.categoryListByIndex(30, categoryData.id - 1).then((categoryList: any) => {
+    this.networkProvider.categoryListByIndex(30, categoryData.id).then((categoryList: any) => {
       this.navCtrl.push(AllCrewViewPage, { title: categoryData.name, crewList: categoryList });
     }, (err: any) => { });
   }

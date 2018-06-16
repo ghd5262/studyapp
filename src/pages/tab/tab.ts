@@ -18,7 +18,7 @@ export class TabPage {
   tab2Root: any = PostPage;
   tab3Root: any = SaveListPage;
   tab4Root: any = MessagePage;
-  tab5Root: any = CrewRagistrationPage;
+  tab5Root: any = ProfilePage; 
 
   mySelectedIndex: number;
 

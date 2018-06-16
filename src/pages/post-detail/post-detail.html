@@ -40,6 +40,8 @@
       <p class="b">{{postData.content}}</p>
     </ion-row>
 
+    <img *ngIf="postData.attachment === 1" class="postImage" src="{{postData.picture}}">
+
     <p style="margin-bottom: 0px">댓글 {{commentCount}}</p>
 
   </ion-grid>

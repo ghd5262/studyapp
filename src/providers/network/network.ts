@@ -148,7 +148,8 @@ export class NetworkProvider {
     console.log('crew data load by index');
     return new Promise((resolve, reject) => {
       this.get(this.PHP_GETKEY.CREWDATA_BY_INDEX, "crewData.php", ('id=' + crewid)).then((data: any) => {
-        console.log('crew data load complete');
+        console.log('crew data load complete : ');
+        console.log(data);
         resolve(data);
       }, (err) => {
         console.log('crewDataByIndex() error : ' + err.message);
@@ -320,17 +321,14 @@ export class NetworkProvider {
     });
   }
 
-  writing(userid, crewid, username, useremail, content, attachment, crewname) {
+  writing(userid, crewid, content, attachment) {
     return new Promise((resolve, reject) => {
       let options: any = {
         "key": "create",
         "userid": userid,
         "crewid": crewid,
-        "username": username,
-        "useremail": useremail,
         "content": content,
-        "attachment": attachment,
-        "crewname": crewname
+        "attachment": attachment
       };
 
       console.log(options);

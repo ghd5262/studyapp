@@ -52,6 +52,7 @@ export class CategorySelectPage {
   }
 
   createCrew(index) {
+    console.log('category index : ' + index);
     this.navCtrl.push(CrewRagistrationPage, { index: index });
   }
 }

@@ -58,6 +58,8 @@ export class HomePage {
   }
 
   openCrewDetail(item: any) {
+    console.log('open crew detail : ');
+    console.log(item);
     this.networkProvider.crewDataByIndex(item.id).then((crewData: any) => {
       this.navCtrl.push(CrewDetailPage, { crewData: crewData });
     }, (err) => { })

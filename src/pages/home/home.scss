@@ -9,6 +9,15 @@ page-home {
         // font-size: 16px;
         cursor: pointer;
     }
+    .crew-image {
+      // left: 0px;
+      // top: 0px;
+      object-fit: cover;
+      object-position: 50%;
+      width: 100vw;
+      height: 150px;
+      // z-index: -3;
+  }
     
     // .button:hover {
     //     background-color: transparent;

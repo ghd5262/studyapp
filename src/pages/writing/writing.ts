@@ -57,11 +57,8 @@ export class WritingPage {
     this.networkProvider.writing(
       this.userData.userid,
       this.crewData.id,
-      this.userData.username,
-      this.userData.useremail,
       this.writing,
-      0,
-      this.crewData.name).then((data: any) => {
+      0).then((data: any) => {
         // this.navCtrl.pop();
         this.noticeProvider.floatingNotice("게시되었습니다.");
       }, (err) => { })

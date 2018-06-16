@@ -34,7 +34,7 @@
     <ion-row *ngFor="let crew of crewList">
       <ion-col>
         <button class="button" (click)="openCrewDetail(crew)">
-          <img src="{{crew.img}}" />
+          <img class="crew-image" src="{{crew.img}}" />
         </button>
         <div class="card-title">{{crew.name}}</div>
       </ion-col>
