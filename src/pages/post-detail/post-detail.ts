@@ -61,7 +61,8 @@ export class PostDetailPage {
   }
 
   modifyPost(postData) {
-    this.actionModal.floatingModal(postData.userid, () => {}, () => {}, ()=>{
+    this.ga.trackEvent('postDetail', 'postModify');
+    this.actionModal.floatingModal(postData.userid, postData.id, () => {}, ()=>{
       this.networkProvider.deletePost(postData.id).then((data:any)=>{
         this.navCtrl.pop();
       }, (err:any)=>{});
@@ -69,7 +70,8 @@ export class PostDetailPage {
   }
 
   modifyComment(commentData) {
-    this.actionModal.floatingModal(commentData.userid, () => {}, () => {}, ()=>{
+    this.ga.trackEvent('postDetail', 'commentModify');
+    this.actionModal.floatingModal(commentData.userid, -1, () => {}, ()=>{
       this.networkProvider.deleteComment(commentData.id).then((data:any)=>{
         this.getCommentList();
       }, (err:any)=>{});

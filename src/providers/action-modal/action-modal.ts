@@ -20,7 +20,7 @@ export class ActionModalProvider {
     console.log('Hello ActionModalProvider Provider');
   }
 
-  floatingModal(userid, save, modify, remove) {
+  floatingModal(userid, postid, modify, remove, savedCancel = null) {
     this.userid = this.networkProvider.userData.userid;
 
     console.log(userid);
@@ -28,9 +28,16 @@ export class ActionModalProvider {
 
     let saveButton: any = {
       text: '저장',
+      icon: !this.platform.is('ios') ? 'heart' : null,
+      handler: () => {
+        this.networkProvider.savePost(postid);
+      }
+    };
+    let saveCancelButton: any = {
+      text: '저장취소',
       icon: !this.platform.is('ios') ? 'heart-outline' : null,
       handler: () => {
-        save();
+        savedCancel();
       }
     };
     let modifyButton: any = {
@@ -38,6 +45,13 @@ export class ActionModalProvider {
       icon: !this.platform.is('ios') ? 'create' : null,
       handler: () => {
         modify();
+      }
+    }
+    let reportButton: any = {
+      text: '신고',
+      icon: !this.platform.is('ios') ? 'warning' : null,
+      handler: () => {
+
       }
     }
     let removeButton: any = {
@@ -56,41 +70,29 @@ export class ActionModalProvider {
       }
     }
 
-    let buttons1: any[] = [saveButton, modifyButton, removeButton, cancelButton];
-    let buttons2: any[] = [saveButton, cancelButton];
-    // let buttons3 = !this.userid == userid ? buttons1 : buttons2;
+    let buttons1: any[] = [(!savedCancel) ? saveButton : saveCancelButton, modifyButton, removeButton, cancelButton];
+    let buttons2: any[] = [(!savedCancel) ? saveButton : saveCancelButton, reportButton, cancelButton];
+    let buttons3: any[] = [modifyButton, removeButton, cancelButton];
+    let buttons4: any[] = [reportButton, cancelButton];
+    let buttons5;
+    if(this.userid == userid){
+      if(postid > -1){
+        buttons5 = buttons1;
+      }
+      else{
+        buttons5 = buttons3;
+      }
+    }
+    else{
+      if(postid > -1){
+        buttons5 = buttons2;
+      }
+      else{
+        buttons5 = buttons4;
+      }
+    }
 
-    const actionSheet = this.actionSheetCtrl.create({
-      buttons: (this.userid == userid) ? buttons1 : buttons2
-      // buttons: [
-      //   {
-      //     text: '저장',
-      //     icon: !this.platform.is('ios') ? 'heart-outline' : null,
-      //     handler: () => {
-      //       save();
-      //     }
-      //   }, {
-      //     text: (!this.userid == userid) ? '수정' : null,
-      //     icon: !this.platform.is('ios') ? 'create' : null,
-      //     handler: () => {
-      //       modify();
-      //     }
-      //   }, {
-      //     text: (!this.userid == userid) ? '삭제' : null,
-      //     icon: !this.platform.is('ios') ? 'trash' : null,
-      //     handler: () => {
-      //       remove();
-      //     }
-      //   }, {
-      //     text: '취소',
-      //     role: 'cancel',
-      //     icon: !this.platform.is('ios') ? 'close' : null,
-
-      //     handler: () => {
-      //     }
-      //   }
-      // ]
-    });
+    const actionSheet = this.actionSheetCtrl.create({buttons: buttons5});
     actionSheet.present();
 
   }

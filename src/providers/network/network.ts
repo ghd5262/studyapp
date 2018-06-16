@@ -47,8 +47,9 @@ export class NetworkProvider {
     CREW_MEMBER_COUNT: "crewMemberCount",
     COMMENT_LIST: "commentList",
     CREW_SCHEDULE_LIST: "scheduleList",
+    SAVED_POST_LIST: "mySavedPostList",
     MYPOST_LIST_IN_CREW: "myPostListInCrew",
-    MYPOST_LIST: "myPostList"
+    MYPOST_LIST: "myPostList" 
   }
 
   constructor(public http: HttpClient,
@@ -561,6 +562,76 @@ export class NetworkProvider {
         if (res.result = 'success') {
           resolve();
           this.noticeProvider.floatingNotice('댓글이 성공적으로 삭제되었습니다.');
+        } else {
+          this.noticeProvider.floatingNotice('삭제 에러');
+        }
+      }, (err) => {
+        console.log('post-err:' + JSON.stringify(err));
+        this.noticeProvider.floatingNotice('서버 통신 에러');
+      });
+    });
+  }
+
+  savePost(postid) {
+    return new Promise((resolve, reject) => {
+      let options: any = {
+        "key": "create",
+        "userid": this.userData.userid,
+        "postid": postid,
+      };
+
+      console.log(options);
+
+      this.post("savedPostUpdate.php", options).then((res: any) => {
+        if (res.result = 'success') {
+          resolve();
+          this.noticeProvider.floatingNotice('저장되었습니다.');
+        } else {
+          this.noticeProvider.floatingNotice('게시물 저장 에러');
+        }
+      }, (err) => {
+        console.log('post-err:' + JSON.stringify(err));
+        this.noticeProvider.floatingNotice('서버 통신 에러');
+      });
+    });
+  }
+
+  savedPostList() {
+    console.log("savedPostList called");
+
+    return new Promise((resolve, reject) => {
+      this.get(this.PHP_GETKEY.SAVED_POST_LIST, "savedPostData.php", ('userid=' + this.userData.userid))
+        .then((data: any) => {
+
+          console.log(data);
+          console.log('all saved post list load complete');
+
+          for (let i = 0; i < data.length; i++) {
+            data[i].content = data[i].content.replace(/&#10;/gi, "\n\r");
+            data[i].date = this.timeConverter(data[i].date);
+          }
+
+          resolve(data);
+        }, (err) => {
+          console.log('savedPostList() error : ' + err.message);
+          reject(err);
+        });
+    });
+  }
+
+  savedPostCancel(postid){
+    return new Promise((resolve, reject) => {
+      let options: any = {
+        "key": "delete",
+        "postid": postid
+      };
+
+      console.log(options);
+
+      this.post("savedPostUpdate.php", options).then((res: any) => {
+        if (res.result = 'success') {
+          resolve();
+          this.noticeProvider.floatingNotice('취소되었습니다.');
         } else {
           this.noticeProvider.floatingNotice('삭제 에러');
         }

@@ -74,7 +74,8 @@ export class PostPage {
   }
   
   modifyPost(postData) {
-    this.actionModal.floatingModal(postData.userid, () => {}, () => {}, ()=>{
+    this.ga.trackEvent('post', 'postModify');
+    this.actionModal.floatingModal(postData.userid, postData.id, () => {}, ()=>{
       this.networkProvider.deletePost(postData.id).then((data:any)=>{
         this.getPostListAll();
       }, (err:any)=>{});
